@@ -12,6 +12,10 @@ AtestPlayerController::AtestPlayerController()
 {
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Crosshairs;
+	ConstructorHelpers::FObjectFinder<UAnimMontage>montage(L"AnimMontage'/Game/Montage/Frank_RPG_Gunslinger_Evade.Frank_RPG_Gunslinger_Evade'");
+	if (montage.Succeeded())FirstDashMontage = montage.Object;
+	ConstructorHelpers::FObjectFinder<UAnimMontage>montage2(L"AnimMontage'/Game/Montage/Frangk_RPG_Gunslinger_Jump.Frangk_RPG_Gunslinger_Jump'");
+	if (montage.Succeeded())SecondDashMontage = montage2.Object;
 }
 
 void AtestPlayerController::PlayerTick(float DeltaTime)
@@ -115,16 +119,18 @@ void AtestPlayerController::OnSetDestinationReleased()
 
 void AtestPlayerController::Dash()
 {
-	MoveLookCursor();
+	DashCount++;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) {
-		character->GetCharacterMovement()->StopMovementImmediately();
-		IsDashing = true;
-		FVector forward = character->GetActorForwardVector() *10000;
+		if (!IsDashing) {
+	MoveLookCursor();
+			character->GetCharacterMovement()->StopMovementImmediately();
+			IsDashing = true;
+			FVector forward = character->GetActorForwardVector() * 10000;
 
-		
-		character->GetCharacterMovement()->AddImpulse(forward, true);
-		GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.3f, false);
-
+			character->PlayAnimMontage(FirstDashMontage,1);
+			character->GetCharacterMovement()->AddImpulse(forward, true);
+			GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.3f, false);
+		}
 	}
 }
 
@@ -172,8 +178,9 @@ void AtestPlayerController::SecondDash()
 		MoveLookCursor();
 		bSecondDash = false;
 		character->GetCharacterMovement()->StopMovementImmediately();
-		FVector forward = character->GetActorForwardVector() * 10000;
+		FVector forward = character->GetActorForwardVector() * 6000;
 
+		character->PlayAnimMontage(SecondDashMontage, 1.5f);
 
 		character->GetCharacterMovement()->AddImpulse(forward, true);
 		GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.3f, false);

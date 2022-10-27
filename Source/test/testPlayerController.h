@@ -46,6 +46,9 @@ protected:
 	bool bSecondDash;
 	bool IsDashing;
 	FTimerHandle DashTimerHandle;
+	UPROPERTY(EditDefaultsOnly)
+		UAnimMontage* FirstDashMontage;
+	UAnimMontage* SecondDashMontage;
 };
 
 

@@ -12,9 +12,6 @@ AtestPlayerController::AtestPlayerController()
 {
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Crosshairs;
-	ConstructorHelpers::FObjectFinder<UAnimMontage> dashmontage(L"");
-	if (dashmontage.Succeeded()) DashMontage = dashmontage.Object;
-	Owner = Cast<ACharacter>(GetOwner());
 }
 
 void AtestPlayerController::PlayerTick(float DeltaTime)
@@ -118,72 +115,68 @@ void AtestPlayerController::OnSetDestinationReleased()
 
 void AtestPlayerController::Dash()
 {
-	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) 
-	{
-			DashCount++;
-		if (!IsDashing) 
-		{
-			MoveLookCursor();
-			IsDashing = true;
-			character->GetCharacterMovement()->StopMovementImmediately();
-			FVector forward = character->GetActorForwardVector() * 10000;
-			character->PlayAnimMontage(DashMontage, 1);
-			character->GetCharacterMovement()->AddImpulse(forward, true);
-			
-			GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.3f, false);
-		}
+	MoveLookCursor();
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) {
+		character->GetCharacterMovement()->StopMovementImmediately();
+		IsDashing = true;
+		FVector forward = character->GetActorForwardVector() *10000;
+
+		
+		character->GetCharacterMovement()->AddImpulse(forward, true);
+		GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.3f, false);
+
 	}
 }
 
 void AtestPlayerController::MoveLookCursor()
 {
 	FHitResult hit;
-	GetHitResultUnderCursor(ECC_Visibility, false, hit);
-	if (hit.bBlockingHit)
+	GetHitResultUnderCursor(ECC_WorldDynamic, false, hit);
+	if(hit.bBlockingHit)
 	{
 		APawn* const MyPawn = GetPawn();
-		if (MyPawn)
+		if(MyPawn)
 		{
 			FRotator LookRotation = UKismetMathLibrary::FindLookAtRotation(MyPawn->GetActorLocation(),
 				FVector(hit.Location.X, hit.Location.Y, hit.Location.Z));
 
 			FRotator rotator;
 
-			rotator.Yaw = LookRotation.Yaw;
-			rotator.Roll = MyPawn->GetActorRotation().Roll;
+			rotator.Yaw   = LookRotation.Yaw;
+			rotator.Roll  = MyPawn->GetActorRotation().Roll;
 			rotator.Pitch = MyPawn->GetActorRotation().Pitch;
 
 
 			MyPawn->SetActorRotation(rotator);
 		}
 	}
-
-}
-
-void AtestPlayerController::SecondDash()
-{
-	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) 
-	{
-			MoveLookCursor();
-			bSecondDash = false;
-			character->GetCharacterMovement()->StopMovementImmediately();
-			FVector forward = character->GetActorForwardVector() * 10000;
-
-
-			character->GetCharacterMovement()->AddImpulse(forward, true);
-			GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.3f, false);
-
-		}
+	
 }
 
 void AtestPlayerController::EndDash()
 {
-		if (DashCount > 1 && bSecondDash)
-		{
+	if (DashCount > 1 && bSecondDash)
+	{
 		SecondDash();
 		return;
-		}
-		IsDashing = false;
-		bSecondDash = true;
-		DashCount = 0;
+	}
+	IsDashing = false;
+	bSecondDash = true;
+	DashCount = 0;
+}
+
+void AtestPlayerController::SecondDash()
+{
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
+	{
+		MoveLookCursor();
+		bSecondDash = false;
+		character->GetCharacterMovement()->StopMovementImmediately();
+		FVector forward = character->GetActorForwardVector() * 10000;
+
+
+		character->GetCharacterMovement()->AddImpulse(forward, true);
+		GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.3f, false);
+
+	}
 }

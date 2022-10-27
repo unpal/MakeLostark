@@ -40,16 +40,12 @@ protected:
 	void OnSetDestinationReleased();
 	void Dash();
 	void MoveLookCursor();
-	bool IsDashing;
-	bool bSecondDash;
-	INT32 DashCount;
-	FTimerHandle DashTimerHandle;
-	void SecondDash();
 	void EndDash();
-	class ACharacter* Owner;
-public:
-	UPROPERTY(EditDefaultsOnly, Category = "Anim")
-		class UAnimMontage* DashMontage;
+	void SecondDash();
+	INT32 DashCount;
+	bool bSecondDash;
+	bool IsDashing;
+	FTimerHandle DashTimerHandle;
 };
 
 

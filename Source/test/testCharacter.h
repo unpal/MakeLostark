@@ -13,7 +13,7 @@ class AtestCharacter : public ACharacter
 
 public:
 	AtestCharacter();
-
+	virtual void BeginPlay() override;
 	// Called every frame.
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -36,5 +36,12 @@ private:
 	/** A decal that projects to the cursor location. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UDecalComponent* CursorToWorld;
+	
+	class UDashWidget* DashCoolDown;
+private:
+	UPROPERTY(EditDefaultsOnly)
+		TSubclassOf<class UDashWidget> DashCoolDownClass;
+public:
+	void VisibleDashCoolDown();
 };
 

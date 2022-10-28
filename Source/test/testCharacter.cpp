@@ -11,7 +11,8 @@
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Materials/Material.h"
 #include "Engine/World.h"
-
+#include "DashNotifyState/DashWidget.h"
+#include "testPlayerController.h"
 AtestCharacter::AtestCharacter()
 {
 	// Set size for player capsule
@@ -55,6 +56,15 @@ AtestCharacter::AtestCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+	ConstructorHelpers::FClassFinder<UDashWidget> widgetclass(L"WidgetBlueprint'/Game/Skill/Widget/BP_DashWidget.BP_DashWidget_C'");
+	if (widgetclass.Succeeded()) DashCoolDownClass = widgetclass.Class;
+}
+
+void AtestCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	DashCoolDown = CreateWidget<UDashWidget, AtestPlayerController>(GetController<AtestPlayerController>(), DashCoolDownClass);
+	DashCoolDown->AddToViewport();
 }
 
 void AtestCharacter::Tick(float DeltaSeconds)
@@ -87,4 +97,9 @@ void AtestCharacter::Tick(float DeltaSeconds)
 			CursorToWorld->SetWorldRotation(CursorR);
 		}
 	}
+}
+
+void AtestCharacter::VisibleDashCoolDown()
+{
+	DashCoolDown->DashCooldown();
 }

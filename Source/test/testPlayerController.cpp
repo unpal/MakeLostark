@@ -122,7 +122,8 @@ void AtestPlayerController::Dash()
 	DashCount++;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) {
 		if (!IsDashing) {
-	MoveLookCursor();
+			MoveLookCursor();
+			character->VisibleDashCoolDown();
 			character->GetCharacterMovement()->StopMovementImmediately();
 			IsDashing = true;
 			FVector forward = character->GetActorForwardVector() * 12000;
@@ -169,6 +170,7 @@ void AtestPlayerController::EndDash()
 	IsDashing = false;
 	bSecondDash = true;
 	DashCount = 0;
+
 }
 
 void AtestPlayerController::SecondDash()

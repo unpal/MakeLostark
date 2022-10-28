@@ -125,11 +125,11 @@ void AtestPlayerController::Dash()
 	MoveLookCursor();
 			character->GetCharacterMovement()->StopMovementImmediately();
 			IsDashing = true;
-			FVector forward = character->GetActorForwardVector() * 10000;
+			FVector forward = character->GetActorForwardVector() * 12000;
 
 			character->PlayAnimMontage(FirstDashMontage,1);
 			character->GetCharacterMovement()->AddImpulse(forward, true);
-			GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.3f, false);
+			GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.25f, false);
 		}
 	}
 }
@@ -178,12 +178,9 @@ void AtestPlayerController::SecondDash()
 		MoveLookCursor();
 		bSecondDash = false;
 		character->GetCharacterMovement()->StopMovementImmediately();
-		FVector forward = character->GetActorForwardVector() * 6000;
 
 		character->PlayAnimMontage(SecondDashMontage, 1.5f);
 
-		character->GetCharacterMovement()->AddImpulse(forward, true);
-		GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.3f, false);
 
 	}
 }

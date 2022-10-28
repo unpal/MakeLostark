@@ -38,6 +38,7 @@ protected:
 	/** Input handlers for SetDestination action. */
 	void OnSetDestinationPressed();
 	void OnSetDestinationReleased();
+public:
 	void Dash();
 	void MoveLookCursor();
 	void EndDash();
@@ -49,6 +50,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 		UAnimMontage* FirstDashMontage;
 	UAnimMontage* SecondDashMontage;
+
 };
 
 

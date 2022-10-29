@@ -43,5 +43,18 @@ private:
 		TSubclassOf<class UDashWidget> DashCoolDownClass;
 public:
 	void VisibleDashCoolDown();
+	void Change_Stance_Left();
+	void Change_Stance_Right();
+private:
+	class AHandgun_Stance* Handgun;
+	class AShotgun_Stance* Shotgun;
+	class ARifle_Stance* Rifle;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool HandgunStance; // 핸드건 스탠스인지
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool ShotgunStance; // 샷건   스탠스인지
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool RifleStance;   // 라이플 스탠스인지
 };
 

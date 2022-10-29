@@ -43,6 +43,8 @@ void AtestPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("ResetVR", IE_Pressed, this, &AtestPlayerController::OnResetVR);
 	InputComponent->BindAction("dash", IE_Pressed, this, &AtestPlayerController::Dash);
+	InputComponent->BindAction("ChangeStanceLeft", IE_Pressed, this, &AtestPlayerController::Change_Stance_Left);
+	InputComponent->BindAction("ChangeStanceRight", IE_Pressed, this, &AtestPlayerController::Change_Stance_Right);
 }
 
 void AtestPlayerController::OnResetVR()
@@ -184,5 +186,21 @@ void AtestPlayerController::SecondDash()
 		character->PlayAnimMontage(SecondDashMontage, 1.5f);
 
 
+	}
+}
+
+void AtestPlayerController::Change_Stance_Left()
+{
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
+	{
+		character->Change_Stance_Left();
+	}
+}
+
+void AtestPlayerController::Change_Stance_Right()
+{
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
+	{
+		character->Change_Stance_Right();
 	}
 }

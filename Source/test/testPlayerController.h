@@ -50,6 +50,9 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 		UAnimMontage* FirstDashMontage;
 	UAnimMontage* SecondDashMontage;
+	void Change_Stance_Left();
+	void Change_Stance_Right();
+private:
 
 };
 

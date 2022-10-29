@@ -11,10 +11,11 @@ class TEST_API ARifle_Stance : public AActor
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
-		FName HandSocket = "Hand_ShotGun";
+		FName HandSocket = "Hand_HandGun_R";
 	UPROPERTY(VisibleDefaultsOnly)
 		class USkeletalMeshComponent* Mesh;
-	
+private:
+	class ACharacter* Owner;
 public:	
 	ARifle_Stance();
 
@@ -24,4 +25,10 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 
+public:
+	static ARifle_Stance* Spawn(class UWorld* InWorld, class ACharacter* InOwner);
+
+public:
+	void Rifle_Stance();
+	void Destroy_Stance();
 };

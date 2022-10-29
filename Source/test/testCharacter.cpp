@@ -13,6 +13,9 @@
 #include "Engine/World.h"
 #include "DashNotifyState/DashWidget.h"
 #include "testPlayerController.h"
+#include "WeaponStance/Handgun_Stance.h"
+#include "WeaponStance/Shotgun_Stance.h"
+#include "WeaponStance/Rifle_Stance.h"
 AtestCharacter::AtestCharacter()
 {
 	// Set size for player capsule
@@ -58,6 +61,9 @@ AtestCharacter::AtestCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 	ConstructorHelpers::FClassFinder<UDashWidget> widgetclass(L"WidgetBlueprint'/Game/Skill/Widget/BP_DashWidget.BP_DashWidget_C'");
 	if (widgetclass.Succeeded()) DashCoolDownClass = widgetclass.Class;
+	HandgunStance = true; // 핸드건 스탠스인지
+	ShotgunStance = false; // 샷건   스탠스인지
+	RifleStance   = false;   // 라이플 스탠스인지
 }
 
 void AtestCharacter::BeginPlay()
@@ -65,6 +71,8 @@ void AtestCharacter::BeginPlay()
 	Super::BeginPlay();
 	DashCoolDown = CreateWidget<UDashWidget, AtestPlayerController>(GetController<AtestPlayerController>(), DashCoolDownClass);
 	DashCoolDown->AddToViewport();
+	Handgun = AHandgun_Stance::Spawn(GetWorld(), this);
+	Handgun->Handgun_Stance();
 }
 
 void AtestCharacter::Tick(float DeltaSeconds)
@@ -102,4 +110,66 @@ void AtestCharacter::Tick(float DeltaSeconds)
 void AtestCharacter::VisibleDashCoolDown()
 {
 	DashCoolDown->DashCooldown();
+}
+
+void AtestCharacter::Change_Stance_Left()
+{
+	if(HandgunStance)
+	{
+		HandgunStance = false;
+		ShotgunStance = true;
+		RifleStance = false;
+		Shotgun = AShotgun_Stance::Spawn(GetWorld(), this);
+		Shotgun->Shotgun_Stance();
+		Handgun->Destroy_Stance();
+	}
+	else if (ShotgunStance)
+	{
+		HandgunStance = false;
+		ShotgunStance = false;
+		RifleStance = true;
+		Rifle = ARifle_Stance::Spawn(GetWorld(), this);
+		Rifle->Rifle_Stance();
+		Shotgun->Destroy_Stance();
+	}
+	else if (RifleStance)
+	{
+		HandgunStance = true;
+		ShotgunStance = false;
+		RifleStance = false;
+		Handgun = AHandgun_Stance::Spawn(GetWorld(), this);
+		Handgun->Handgun_Stance();
+		Rifle->Destroy_Stance();
+	}
+}
+
+void AtestCharacter::Change_Stance_Right()
+{
+	if (HandgunStance)
+	{
+		HandgunStance = false;
+		ShotgunStance = false;
+		RifleStance = true;
+		Rifle = ARifle_Stance::Spawn(GetWorld(), this);
+		Rifle->Rifle_Stance();
+		Handgun->Destroy_Stance();
+	}
+	else if (ShotgunStance)
+	{
+		HandgunStance = true;
+		ShotgunStance = false;
+		RifleStance = false;
+		Handgun = AHandgun_Stance::Spawn(GetWorld(), this);
+		Handgun->Handgun_Stance();
+		Shotgun->Destroy_Stance();
+	}
+	else if (RifleStance)
+	{
+		HandgunStance = false;
+		ShotgunStance = true;
+		RifleStance = false;
+		Shotgun = AShotgun_Stance::Spawn(GetWorld(), this);
+		Shotgun->Shotgun_Stance();
+		Rifle->Destroy_Stance();
+	}
 }

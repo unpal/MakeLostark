@@ -11,16 +11,15 @@ class TEST_API AHandgun_Stance : public AActor
 	
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
-		FName HandSocket_L = "Hand_HandGun_L";
+		FName HandSocket_Handgun_L = "Hand_HandGun_L";
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
-		FName HandSocket_R = "Hand_HandGun_R";
+		FName HandSocket_Handgun_R = "Hand_HandGun_R";
+
+	UPROPERTY(VisibleDefaultsOnly)
+		class USkeletalMeshComponent* Mesh;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
 		class UAnimMontage* GrabMontage;
-
-private:
-	UPROPERTY(VisibleDefaultsOnly)
-		class USkeletalMeshComponent* Mesh;
 
 private:
 	class ACharacter* Owner;

@@ -38,7 +38,8 @@ AHandgun_Stance* AHandgun_Stance::Spawn(UWorld* InWorld, ACharacter* InOwner)
 void AHandgun_Stance::Handgun_Stance()
 {
 	Owner = Cast<ACharacter>(GetOwner());
-	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_R);
+	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Handgun_R);
+	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Handgun_L);
 	Owner->PlayAnimMontage(GrabMontage, 2);
 }
 

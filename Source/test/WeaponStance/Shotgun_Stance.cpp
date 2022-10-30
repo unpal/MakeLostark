@@ -10,6 +10,8 @@ AShotgun_Stance::AShotgun_Stance()
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(L"SkeletalMesh'/Game/MilitaryWeapSilver/Weapons/Shotgun_A.Shotgun_A'");
 	if (mesh.Succeeded()) Mesh->SetSkeletalMesh(mesh.Object);
 
+	ConstructorHelpers::FObjectFinder<UAnimMontage> grabMontage(L"AnimMontage'/Game/Stance/Shotgun_Stance_Montage.Shotgun_Stance_Montage'");
+	if (grabMontage.Succeeded()) GrabMontage = grabMontage.Object;
 }
 
 void AShotgun_Stance::BeginPlay()
@@ -35,8 +37,7 @@ AShotgun_Stance* AShotgun_Stance::Spawn(UWorld* InWorld, ACharacter* InOwner)
 void AShotgun_Stance::Shotgun_Stance()
 {
 	Owner = Cast<ACharacter>(GetOwner());
-	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket);
-	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket);
+	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Shotgun);
 }
 
 void AShotgun_Stance::Destroy_Stance()

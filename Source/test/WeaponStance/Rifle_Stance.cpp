@@ -10,6 +10,9 @@ ARifle_Stance::ARifle_Stance()
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(L"SkeletalMesh'/Game/MilitaryWeapSilver/Weapons/Sniper_Rifle_A.Sniper_Rifle_A'");
 	if (mesh.Succeeded()) Mesh->SetSkeletalMesh(mesh.Object);
 
+	ConstructorHelpers::FObjectFinder<UAnimMontage> grabMontage(L"AnimMontage'/Game/Stance/Rifle_Stance_Montage.Rifle_Stance_Montage'");
+	if (grabMontage.Succeeded()) GrabMontage = grabMontage.Object;
+
 }
 
 void ARifle_Stance::BeginPlay()
@@ -35,8 +38,7 @@ ARifle_Stance* ARifle_Stance::Spawn(UWorld* InWorld, ACharacter* InOwner)
 void ARifle_Stance::Rifle_Stance()
 {
 	Owner = Cast<ACharacter>(GetOwner());
-	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket);
-	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket);
+	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Rifle);
 }
 
 void ARifle_Stance::Destroy_Stance()

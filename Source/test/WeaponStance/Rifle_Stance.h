@@ -11,11 +11,17 @@ class TEST_API ARifle_Stance : public AActor
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
-		FName HandSocket = "Hand_HandGun_R";
+		FName HandSocket_Rifle = "Hand_Rifle";
+
 	UPROPERTY(VisibleDefaultsOnly)
 		class USkeletalMeshComponent* Mesh;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Socket")
+		class UAnimMontage* GrabMontage;
+
 private:
 	class ACharacter* Owner;
+
 public:	
 	ARifle_Stance();
 

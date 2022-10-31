@@ -24,7 +24,6 @@ private:
 private:
 	class ACharacter* Owner;
 
-
 public:	
 	AHandgun_Stance();
 
@@ -36,6 +35,7 @@ public:
 
 public:
 	static AHandgun_Stance* Spawn(class UWorld* InWorld, class ACharacter* InOwner);
+
 
 public:
 	void Handgun_Stance();

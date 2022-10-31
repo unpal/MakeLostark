@@ -32,15 +32,14 @@ AHandgun_Stance* AHandgun_Stance::Spawn(UWorld* InWorld, ACharacter* InOwner)
 	FActorSpawnParameters params; 
 	params.Owner = InOwner; 
 
-	return InWorld->SpawnActor<AHandgun_Stance>(params);
+	return InWorld->SpawnActor<AHandgun_Stance>(params); 
 }
 
 void AHandgun_Stance::Handgun_Stance()
 {
 	Owner = Cast<ACharacter>(GetOwner());
 	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Handgun_R);
-	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Handgun_L);
-	Owner->PlayAnimMontage(GrabMontage, 2);
+	Owner->PlayAnimMontage(GrabMontage, 0);
 }
 
 void AHandgun_Stance::Destroy_Stance()

@@ -39,6 +39,7 @@ void ARifle_Stance::Rifle_Stance()
 {
 	Owner = Cast<ACharacter>(GetOwner());
 	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Rifle);
+	Owner->PlayAnimMontage(GrabMontage, 0);
 }
 
 void ARifle_Stance::Destroy_Stance()

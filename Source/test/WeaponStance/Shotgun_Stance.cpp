@@ -38,7 +38,6 @@ void AShotgun_Stance::Shotgun_Stance()
 {
 	Owner = Cast<ACharacter>(GetOwner());
 	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Shotgun);
-	Owner->PlayAnimMontage(GrabMontage, 0);
 }
 
 void AShotgun_Stance::Destroy_Stance()

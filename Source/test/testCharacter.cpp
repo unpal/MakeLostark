@@ -16,6 +16,8 @@
 #include "WeaponStance/Handgun_Stance.h"
 #include "WeaponStance/Shotgun_Stance.h"
 #include "WeaponStance/Rifle_Stance.h"
+
+
 AtestCharacter::AtestCharacter()
 {
 	// Set size for player capsule
@@ -64,6 +66,9 @@ AtestCharacter::AtestCharacter()
 	HandgunStance = true; // 핸드건 스탠스인지
 	ShotgunStance = false; // 샷건   스탠스인지
 	RifleStance   = false;   // 라이플 스탠스인지
+
+	ConstructorHelpers::FClassFinder<UAnimInstance> anim(L"AnimBlueprint'/Game/Stance/StanceAnim.StanceAnim_C'");
+	if (anim.Succeeded()) GetMesh()->SetAnimClass(anim.Class);
 }
 
 void AtestCharacter::BeginPlay()

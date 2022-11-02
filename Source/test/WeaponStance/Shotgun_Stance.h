@@ -18,7 +18,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
 		class UAnimMontage* GrabMontage;
-
+	UPROPERTY(EditDefaultsOnly)
+		class UAnimMontage* General_Attack_Montage;
 private:
 	class ACharacter* Owner;
 
@@ -36,5 +37,5 @@ public:
 public:
 	void Shotgun_Stance();
 	void Destroy_Stance();
-
+	void General_Attack();
 };

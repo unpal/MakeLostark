@@ -194,4 +194,6 @@ void AtestCharacter::General_Attack()
 {
 	if(HandgunStance)
 	Handgun_L->General_Attack();
+	if (ShotgunStance)
+		Shotgun->General_Attack();
 }

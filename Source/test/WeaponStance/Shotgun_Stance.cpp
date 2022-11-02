@@ -12,6 +12,8 @@ AShotgun_Stance::AShotgun_Stance()
 
 	ConstructorHelpers::FObjectFinder<UAnimMontage> grabMontage(L"AnimMontage'/Game/Stance/Shotgun_Stance_Montage.Shotgun_Stance_Montage'");
 	if (grabMontage.Succeeded()) GrabMontage = grabMontage.Object;
+	ConstructorHelpers::FObjectFinder<UAnimMontage> general_attack_montage(L"AnimMontage'/Game/Montage/Frank_RPG_Gunslinger_Attack01_Montage.Frank_RPG_Gunslinger_Attack01_Montage'");
+	if (general_attack_montage.Succeeded()) General_Attack_Montage = general_attack_montage.Object;
 }
 
 void AShotgun_Stance::BeginPlay()
@@ -43,5 +45,12 @@ void AShotgun_Stance::Shotgun_Stance()
 void AShotgun_Stance::Destroy_Stance()
 {
 	Destroy();
+
+}
+
+void AShotgun_Stance::General_Attack()
+{
+	Owner = Cast<ACharacter>(GetOwner());
+	Owner->PlayAnimMontage(General_Attack_Montage, 1);
 }
 

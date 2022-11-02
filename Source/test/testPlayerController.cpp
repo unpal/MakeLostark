@@ -16,6 +16,7 @@ AtestPlayerController::AtestPlayerController()
 	if (montage.Succeeded())FirstDashMontage = montage.Object;
 	ConstructorHelpers::FObjectFinder<UAnimMontage>montage2(L"AnimMontage'/Game/Montage/Frangk_RPG_Gunslinger_Jump.Frangk_RPG_Gunslinger_Jump'");
 	if (montage.Succeeded())SecondDashMontage = montage2.Object;
+	bMove = true;
 }
 
 void AtestPlayerController::PlayerTick(float DeltaTime)
@@ -45,6 +46,8 @@ void AtestPlayerController::SetupInputComponent()
 	InputComponent->BindAction("dash", IE_Pressed, this, &AtestPlayerController::Dash);
 	InputComponent->BindAction("ChangeStanceLeft", IE_Pressed, this, &AtestPlayerController::Change_Stance_Left);
 	InputComponent->BindAction("ChangeStanceRight", IE_Pressed, this, &AtestPlayerController::Change_Stance_Right);
+	InputComponent->BindAction("General_Attack", IE_Pressed, this, &AtestPlayerController::General_Attack);
+	
 }
 
 void AtestPlayerController::OnResetVR()
@@ -95,7 +98,7 @@ void AtestPlayerController::MoveToTouchLocation(const ETouchIndex::Type FingerIn
 void AtestPlayerController::SetNewMoveDestination(const FVector DestLocation)
 {
 	APawn* const MyPawn = GetPawn();
-	if (MyPawn&&!IsDashing)
+	if (MyPawn&&bMove&&!IsDashing)
 	{
 		float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
 
@@ -172,7 +175,7 @@ void AtestPlayerController::EndDash()
 	IsDashing = false;
 	bSecondDash = true;
 	DashCount = 0;
-
+	bMove = true;
 }
 
 void AtestPlayerController::SecondDash()
@@ -185,22 +188,31 @@ void AtestPlayerController::SecondDash()
 
 		character->PlayAnimMontage(SecondDashMontage, 1.5f);
 
-
+		GetWorldTimerManager().SetTimer(DashTimerHandle, this, &AtestPlayerController::EndDash, 0.25f, false);
 	}
 }
 
 void AtestPlayerController::Change_Stance_Left()
 {
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
-	{
 		character->Change_Stance_Left();
-	}
 }
 
 void AtestPlayerController::Change_Stance_Right()
 {
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
-	{
 		character->Change_Stance_Right();
-	}
 }
+
+void AtestPlayerController::General_Attack()
+{
+	MoveLookCursor();
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
+	{
+		character->GetCharacterMovement()->StopMovementImmediately();
+		character->General_Attack();
+		bMove = false;
+	}
+	
+}
+

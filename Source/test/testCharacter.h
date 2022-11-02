@@ -46,10 +46,13 @@ public:
 	void Change_Stance_Left();
 	void Change_Stance_Right();
 
-private:
+	public:
 	class AHandgun_Stance* Handgun_R;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class AHandgun_Stance* Handgun_L;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class AShotgun_Stance* Shotgun;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class ARifle_Stance* Rifle;
 
 public:
@@ -59,4 +62,5 @@ public:
 	bool ShotgunStance; // 샷건   스탠스인지
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool RifleStance;   // 라이플 스탠스인지
+	void General_Attack();
 };

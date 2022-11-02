@@ -20,6 +20,14 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
 		class UAnimMontage* GrabMontage;
+	UPROPERTY(EditDefaultsOnly)
+		class UAnimMontage* General_Attack_Montage1;
+	UPROPERTY(EditDefaultsOnly)
+		class UAnimMontage* General_Attack_Montage2;
+	UPROPERTY(EditDefaultsOnly)
+		class UAnimMontage* General_Attack_Montage3;
+	UPROPERTY(EditDefaultsOnly)
+		class UAnimMontage* General_Attack_Montage4;
 
 private:
 	class ACharacter* Owner;
@@ -40,4 +48,17 @@ public:
 	void Handgun_Stance_R();
 	void Handgun_Stance_L();
 	void Destroy_Stance();
+	void General_Attack();
+	UFUNCTION(BlueprintCallable)
+		void General_Attack_And();
+	UFUNCTION(BlueprintCallable)
+		void General_Attack_Bullet_Shoot();
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		int General_Attack_Count;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		int General_Attack_And_Count;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		bool bGeneral_Attack;
+	UPROPERTY(EditDefaultsOnly)
+		TSubclassOf<class ABullet> BulletClass;
 };

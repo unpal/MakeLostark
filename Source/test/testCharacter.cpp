@@ -189,3 +189,9 @@ void AtestCharacter::Change_Stance_Right()
 		Rifle->Destroy_Stance();
 	}
 }
+
+void AtestCharacter::General_Attack()
+{
+	if(HandgunStance)
+	Handgun_L->General_Attack();
+}

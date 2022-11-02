@@ -52,8 +52,9 @@ public:
 	UAnimMontage* SecondDashMontage;
 	void Change_Stance_Left();
 	void Change_Stance_Right();
-private:
-
+	void General_Attack();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bMove;
 };
 
 

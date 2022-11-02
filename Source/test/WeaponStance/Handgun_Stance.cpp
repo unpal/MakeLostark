@@ -29,16 +29,22 @@ void AHandgun_Stance::Tick(float DeltaTime)
 
 AHandgun_Stance* AHandgun_Stance::Spawn(UWorld* InWorld, ACharacter* InOwner)
 {
-	FActorSpawnParameters params; 
-	params.Owner = InOwner; 
+	FActorSpawnParameters params1; 
+	params1.Owner = InOwner; 
 
-	return InWorld->SpawnActor<AHandgun_Stance>(params); 
+	return InWorld->SpawnActor<AHandgun_Stance>(params1); 
 }
 
-void AHandgun_Stance::Handgun_Stance()
+void AHandgun_Stance::Handgun_Stance_R()
 {
 	Owner = Cast<ACharacter>(GetOwner());
 	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Handgun_R);
+}
+
+void AHandgun_Stance::Handgun_Stance_L()
+{
+	Owner = Cast<ACharacter>(GetOwner());
+	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Handgun_L);
 }
 
 void AHandgun_Stance::Destroy_Stance()

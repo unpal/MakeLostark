@@ -76,8 +76,10 @@ void AtestCharacter::BeginPlay()
 	Super::BeginPlay();
 	DashCoolDown = CreateWidget<UDashWidget, AtestPlayerController>(GetController<AtestPlayerController>(), DashCoolDownClass);
 	DashCoolDown->AddToViewport();
-	Handgun = AHandgun_Stance::Spawn(GetWorld(), this);
-	Handgun->Handgun_Stance();
+	Handgun_R = AHandgun_Stance::Spawn(GetWorld(), this);
+	Handgun_R->Handgun_Stance_R();
+	Handgun_L = AHandgun_Stance::Spawn(GetWorld(), this);
+	Handgun_L->Handgun_Stance_L();
 }
 
 void AtestCharacter::Tick(float DeltaSeconds)
@@ -126,7 +128,9 @@ void AtestCharacter::Change_Stance_Left()
 		RifleStance = false;
 		Shotgun = AShotgun_Stance::Spawn(GetWorld(), this);
 		Shotgun->Shotgun_Stance();
-		Handgun->Destroy_Stance();
+		Handgun_R->Destroy_Stance();
+		Handgun_L->Destroy_Stance();
+
 	}
 	else if (ShotgunStance)
 	{
@@ -142,8 +146,11 @@ void AtestCharacter::Change_Stance_Left()
 		HandgunStance = true;
 		ShotgunStance = false;
 		RifleStance = false;
-		Handgun = AHandgun_Stance::Spawn(GetWorld(), this);
-		Handgun->Handgun_Stance();
+		Handgun_R = AHandgun_Stance::Spawn(GetWorld(), this);
+		Handgun_R->Handgun_Stance_R();
+		Handgun_L = AHandgun_Stance::Spawn(GetWorld(), this);
+		Handgun_L->Handgun_Stance_L();
+
 		Rifle->Destroy_Stance();
 	}
 }
@@ -157,15 +164,19 @@ void AtestCharacter::Change_Stance_Right()
 		RifleStance = true;
 		Rifle = ARifle_Stance::Spawn(GetWorld(), this);
 		Rifle->Rifle_Stance();
-		Handgun->Destroy_Stance();
+		Handgun_R->Destroy_Stance();
+		Handgun_L->Destroy_Stance();
+
 	}
 	else if (ShotgunStance)
 	{
 		HandgunStance = true;
 		ShotgunStance = false;
 		RifleStance = false;
-		Handgun = AHandgun_Stance::Spawn(GetWorld(), this);
-		Handgun->Handgun_Stance();
+		Handgun_R = AHandgun_Stance::Spawn(GetWorld(), this);
+		Handgun_R->Handgun_Stance_R();
+		Handgun_L = AHandgun_Stance::Spawn(GetWorld(), this);
+		Handgun_L->Handgun_Stance_L();
 		Shotgun->Destroy_Stance();
 	}
 	else if (RifleStance)

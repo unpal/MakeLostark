@@ -36,8 +36,8 @@ public:
 public:
 	static AHandgun_Stance* Spawn(class UWorld* InWorld, class ACharacter* InOwner);
 
-
 public:
-	void Handgun_Stance();
+	void Handgun_Stance_R();
+	void Handgun_Stance_L();
 	void Destroy_Stance();
 };

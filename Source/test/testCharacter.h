@@ -47,7 +47,8 @@ public:
 	void Change_Stance_Right();
 
 private:
-	class AHandgun_Stance* Handgun;
+	class AHandgun_Stance* Handgun_R;
+	class AHandgun_Stance* Handgun_L;
 	class AShotgun_Stance* Shotgun;
 	class ARifle_Stance* Rifle;
 

@@ -1,7 +1,9 @@
 #include "Handgun_Stance.h"
-#include "Gameframework/Character.h"
+#include "GameFramework/Character.h"
 #include "Bullet.h"
 #include "../testPlayerController.h"
+#include "particles/ParticleSystem.h"
+#include "Kismet/GamePlayStatics.h"
 AHandgun_Stance::AHandgun_Stance()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -23,6 +25,8 @@ AHandgun_Stance::AHandgun_Stance()
 	if (grabMontage.Succeeded()) General_Attack_Montage4 = general_attack_montage4.Object;
 	ConstructorHelpers::FClassFinder<ABullet>bullet(L"Blueprint'/Game/Bullet/BP_Bullet.BP_Bullet_C'");
 	if (bullet.Succeeded())BulletClass = bullet.Class;
+	ConstructorHelpers::FObjectFinder<UParticleSystem>flashparticle(L"ParticleSystem'/Game/MilitaryWeapSilver/FX/P_Pistol_MuzzleFlash_01.P_Pistol_MuzzleFlash_01'");
+	if (flashparticle.Succeeded())FlashParticle = flashparticle.Object;
 	bGeneral_Attack = true;
 }
 
@@ -95,5 +99,7 @@ void AHandgun_Stance::General_Attack_Bullet_Shoot()
 	FVector spawnLocation = muzzleLocation + direction * 100;
 	ABullet* bullet = GetWorld()->SpawnActor<ABullet>(
 		BulletClass, spawnLocation, direction.Rotation());
+	if (FlashParticle)
+		UGameplayStatics::SpawnEmitterAttached(FlashParticle, Mesh, "MuzzleFlash", FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::KeepRelativeOffset);
 	bullet->Shoot(direction);
 }

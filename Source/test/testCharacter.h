@@ -47,6 +47,7 @@ public:
 	void Change_Stance_Right();
 
 	public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class AHandgun_Stance* Handgun_R;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class AHandgun_Stance* Handgun_L;

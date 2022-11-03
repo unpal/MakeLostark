@@ -1,6 +1,7 @@
 #include "Shotgun_Stance.h"
 #include "Gameframework/Character.h"
-
+#include "Particles/ParticleSystem.h"
+#include "Kismet/GamePlayStatics.h"
 AShotgun_Stance::AShotgun_Stance()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -14,6 +15,9 @@ AShotgun_Stance::AShotgun_Stance()
 	if (grabMontage.Succeeded()) GrabMontage = grabMontage.Object;
 	ConstructorHelpers::FObjectFinder<UAnimMontage> general_attack_montage(L"AnimMontage'/Game/Montage/Frank_RPG_Gunslinger_Attack01_Montage.Frank_RPG_Gunslinger_Attack01_Montage'");
 	if (general_attack_montage.Succeeded()) General_Attack_Montage = general_attack_montage.Object;
+	ConstructorHelpers::FObjectFinder<UParticleSystem>flashparticle(L"ParticleSystem'/Game/MilitaryWeapSilver/FX/P_Shotgun_MuzzleFlash_01.P_Shotgun_MuzzleFlash_01'");
+	if (flashparticle.Succeeded()) FlashParticle = flashparticle.Object;
+	bGeneral_Attack = true;
 }
 
 void AShotgun_Stance::BeginPlay()
@@ -50,7 +54,15 @@ void AShotgun_Stance::Destroy_Stance()
 
 void AShotgun_Stance::General_Attack()
 {
+	if (!bGeneral_Attack) return;
 	Owner = Cast<ACharacter>(GetOwner());
 	Owner->PlayAnimMontage(General_Attack_Montage, 1);
+	bGeneral_Attack = false;
+}
+
+void AShotgun_Stance::PlayMuzzleFlash()
+{
+	if (FlashParticle)
+		UGameplayStatics::SpawnEmitterAttached(FlashParticle, Mesh, "MuzzleFlash", FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::KeepRelativeOffset);
 }
 

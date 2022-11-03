@@ -38,4 +38,10 @@ public:
 	void Shotgun_Stance();
 	void Destroy_Stance();
 	void General_Attack();
+	UPROPERTY(EditDefaultsOnly)
+		class UParticleSystem* FlashParticle;
+	UFUNCTION(BlueprintCallable)
+		void PlayMuzzleFlash();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bGeneral_Attack;
 };

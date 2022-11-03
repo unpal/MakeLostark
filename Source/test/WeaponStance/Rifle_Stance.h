@@ -44,4 +44,8 @@ public:
 	void General_Attack_Bullet_Shoot();
 	UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<class ABullet> BulletClass;
+	UPROPERTY(EditDefaultsOnly)
+		class UParticleSystem* FlashParticle;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bGeneral_Attack;
 };

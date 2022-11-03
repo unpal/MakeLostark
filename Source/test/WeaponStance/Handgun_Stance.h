@@ -61,4 +61,6 @@ public:
 		bool bGeneral_Attack;
 	UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<class ABullet> BulletClass;
+	UPROPERTY(EditDefaultsOnly)
+		class UParticleSystem* FlashParticle;
 };

@@ -17,6 +17,7 @@ AtestPlayerController::AtestPlayerController()
 	ConstructorHelpers::FObjectFinder<UAnimMontage>montage2(L"AnimMontage'/Game/Montage/Frangk_RPG_Gunslinger_Jump.Frangk_RPG_Gunslinger_Jump'");
 	if (montage.Succeeded())SecondDashMontage = montage2.Object;
 	bMove = true;
+	IsFocused_Shot = true;
 }
 
 void AtestPlayerController::PlayerTick(float DeltaTime)
@@ -47,6 +48,7 @@ void AtestPlayerController::SetupInputComponent()
 	InputComponent->BindAction("ChangeStanceLeft", IE_Pressed, this, &AtestPlayerController::Change_Stance_Left);
 	InputComponent->BindAction("ChangeStanceRight", IE_Pressed, this, &AtestPlayerController::Change_Stance_Right);
 	InputComponent->BindAction("General_Attack", IE_Pressed, this, &AtestPlayerController::General_Attack);
+	InputComponent->BindAction("Focused_Shot", IE_Pressed, this, &AtestPlayerController::Focused_Shot);
 	
 }
 
@@ -98,7 +100,7 @@ void AtestPlayerController::MoveToTouchLocation(const ETouchIndex::Type FingerIn
 void AtestPlayerController::SetNewMoveDestination(const FVector DestLocation)
 {
 	APawn* const MyPawn = GetPawn();
-	if (MyPawn&&bMove&&!IsDashing)
+	if (MyPawn&&bMove&&!IsDashing&&IsFocused_Shot)
 	{
 		float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
 
@@ -194,25 +196,41 @@ void AtestPlayerController::SecondDash()
 
 void AtestPlayerController::Change_Stance_Left()
 {
+	if (!bMove) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 		character->Change_Stance_Left();
 }
 
 void AtestPlayerController::Change_Stance_Right()
 {
+	if (!bMove) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 		character->Change_Stance_Right();
 }
 
 void AtestPlayerController::General_Attack()
 {
+	if (IsDashing|| IsFocused_Shot) return;
 	MoveLookCursor();
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
 		character->GetCharacterMovement()->StopMovementImmediately();
 		character->General_Attack();
 		bMove = false;
+		 
 	}
 	
+}
+
+void AtestPlayerController::Focused_Shot()
+{
+	if (!IsFocused_Shot) return;
+	MoveLookCursor();
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) 
+	{
+		character->GetCharacterMovement()->StopMovementImmediately();
+		character->On_Focused_Shot();
+	}
+	IsFocused_Shot = false;
 }
 

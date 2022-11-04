@@ -16,7 +16,7 @@
 #include "WeaponStance/Handgun_Stance.h"
 #include "WeaponStance/Shotgun_Stance.h"
 #include "WeaponStance/Rifle_Stance.h"
-
+#include "RifleSkill/SkillComponent.h"
 
 AtestCharacter::AtestCharacter()
 {
@@ -69,6 +69,7 @@ AtestCharacter::AtestCharacter()
 
 	ConstructorHelpers::FClassFinder<UAnimInstance> anim(L"AnimBlueprint'/Game/Stance/StanceAnim.StanceAnim_C'");
 	if (anim.Succeeded()) GetMesh()->SetAnimClass(anim.Class);
+	Skill = CreateDefaultSubobject<USkillComponent>("Skill");
 }
 
 void AtestCharacter::BeginPlay()
@@ -198,4 +199,9 @@ void AtestCharacter::General_Attack()
 		Shotgun->General_Attack();
 	if (RifleStance)
 		Rifle->General_Attack();
+}
+
+void AtestCharacter::On_Focused_Shot()
+{
+	Skill->On_Focused_Shot();
 }

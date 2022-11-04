@@ -55,6 +55,11 @@ public:
 	void General_Attack();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bMove;
+	void Focused_Shot();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsFocused_Shot;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Focused_Shot_Combo_Count;
 };
 
 

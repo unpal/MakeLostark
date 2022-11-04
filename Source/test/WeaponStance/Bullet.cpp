@@ -22,8 +22,6 @@ ABullet::ABullet()
 	if (mesh.Succeeded()) Mesh->SetStaticMesh(mesh.Object);
 	ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant>material(L"MaterialInstanceConstant'/Game/Bullet/M_Bullet_Inst.M_Bullet_Inst'");
 	if (material.Succeeded()) Mesh->SetMaterial(0, material.Object);
-	ConstructorHelpers::FObjectFinder<UParticleSystem>rayparticle(L"ParticleSystem'/Game/MilitaryWeapSilver/FX/P_Pistol_Tracer_01.P_Pistol_Tracer_01'");
-	if (rayparticle.Succeeded()) RayParticle = rayparticle.Object;
 	Mesh->SetupAttachment(Capsule);
 	Mesh->SetRelativeScale3D(FVector(1, 0.025f, 0.025f));
 	Mesh->SetRelativeRotation(FRotator(90, 0, 0));

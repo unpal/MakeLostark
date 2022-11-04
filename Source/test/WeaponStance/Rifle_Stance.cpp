@@ -14,7 +14,7 @@ ARifle_Stance::ARifle_Stance()
 
 	ConstructorHelpers::FObjectFinder<UAnimMontage> grabMontage(L"AnimMontage'/Game/Stance/Rifle_Stance_Montage.Rifle_Stance_Montage'");
 	if (grabMontage.Succeeded()) GrabMontage = grabMontage.Object;
-	ConstructorHelpers::FObjectFinder<UAnimMontage> general_attack_montage(L"AnimMontage'/Game/Montage/Frank_RPG_Gunslinger_Attack03_Montage.Frank_RPG_Gunslinger_Attack03_Montage'");
+	ConstructorHelpers::FObjectFinder<UAnimMontage> general_attack_montage(L"AnimMontage'/Game/Montage/Frank_RPG_Gunslinger_Combo04_1_Montage.Frank_RPG_Gunslinger_Combo04_1_Montage'");
 	if (general_attack_montage.Succeeded()) General_Attack_Montage = general_attack_montage.Object;
 	ConstructorHelpers::FClassFinder<ABullet>bullet(L"Blueprint'/Game/Bullet/BP_Bullet.BP_Bullet_C'");
 	if (bullet.Succeeded())BulletClass = bullet.Class;

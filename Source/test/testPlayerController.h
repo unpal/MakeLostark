@@ -43,7 +43,8 @@ public:
 	void MoveLookCursor();
 	void EndDash();
 	void SecondDash();
-	INT32 DashCount;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int DashCount;
 	bool bSecondDash;
 	bool IsDashing;
 	FTimerHandle DashTimerHandle;

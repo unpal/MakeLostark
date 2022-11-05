@@ -57,7 +57,7 @@ public:
 		int General_Attack_Count;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		int General_Attack_And_Count;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool bGeneral_Attack;
 	UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<class ABullet> BulletClass;

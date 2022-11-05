@@ -17,7 +17,7 @@ AtestPlayerController::AtestPlayerController()
 	ConstructorHelpers::FObjectFinder<UAnimMontage>montage2(L"AnimMontage'/Game/Montage/Frangk_RPG_Gunslinger_Jump.Frangk_RPG_Gunslinger_Jump'");
 	if (montage.Succeeded())SecondDashMontage = montage2.Object;
 	bMove = true;
-	IsFocused_Shot = true;
+	IsFocused_Shot = false;
 }
 
 void AtestPlayerController::PlayerTick(float DeltaTime)
@@ -100,7 +100,7 @@ void AtestPlayerController::MoveToTouchLocation(const ETouchIndex::Type FingerIn
 void AtestPlayerController::SetNewMoveDestination(const FVector DestLocation)
 {
 	APawn* const MyPawn = GetPawn();
-	if (MyPawn&&bMove&&!IsDashing&&IsFocused_Shot)
+	if (MyPawn&&bMove&&!IsDashing)
 	{
 		float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
 
@@ -217,20 +217,19 @@ void AtestPlayerController::General_Attack()
 		character->GetCharacterMovement()->StopMovementImmediately();
 		character->General_Attack();
 		bMove = false;
-		 
 	}
 	
 }
 
 void AtestPlayerController::Focused_Shot()
 {
-	if (!IsFocused_Shot) return;
+	if (IsFocused_Shot) return;
 	MoveLookCursor();
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) 
 	{
 		character->GetCharacterMovement()->StopMovementImmediately();
 		character->On_Focused_Shot();
+		IsFocused_Shot = true;
 	}
-	IsFocused_Shot = false;
 }
 

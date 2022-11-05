@@ -203,5 +203,6 @@ void AtestCharacter::General_Attack()
 
 void AtestCharacter::On_Focused_Shot()
 {
+	if(RifleStance)
 	Skill->On_Focused_Shot();
 }

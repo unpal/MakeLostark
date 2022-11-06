@@ -30,7 +30,7 @@ public:
 	void On_Focused_Shot();
 	void On_Perfect_Shot();
 	void End_Perfect_Shot();
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool Perfect_Shot_Casting;
 	UPROPERTY(EditAnywhere)
 		FTimerHandle Perfect_Shot_TimerHandle;

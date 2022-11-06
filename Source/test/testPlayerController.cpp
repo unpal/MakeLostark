@@ -102,7 +102,7 @@ void AtestPlayerController::MoveToTouchLocation(const ETouchIndex::Type FingerIn
 void AtestPlayerController::SetNewMoveDestination(const FVector DestLocation)
 {
 	APawn* const MyPawn = GetPawn();
-	if (MyPawn&&bMove&&!IsDashing&&!IsFocused_Shot)
+	if (MyPawn&&bMove&&!IsDashing&&!IsFocused_Shot&&!IsPerfect_Shot)
 	{
 		float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
 
@@ -212,7 +212,7 @@ void AtestPlayerController::Change_Stance_Right()
 
 void AtestPlayerController::General_Attack()
 {
-	if (IsDashing|| IsFocused_Shot) return;
+	if (IsDashing|| IsFocused_Shot|| IsPerfect_Shot) return;
 	MoveLookCursor();
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
@@ -226,6 +226,7 @@ void AtestPlayerController::General_Attack()
 void AtestPlayerController::Focused_Shot()
 {
 	if (IsFocused_Shot) return;
+	if (IsPerfect_Shot) return;
 	MoveLookCursor();
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) 
 	{
@@ -237,8 +238,11 @@ void AtestPlayerController::Focused_Shot()
 
 void AtestPlayerController::Perfect_Shot_Start()
 {
+	if (IsFocused_Shot) return;
+	if (IsDashing) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
+		IsPerfect_Shot = true;
 		character->GetCharacterMovement()->StopMovementImmediately();
 		character->Perfect_Shot_Start();
 	}
@@ -246,8 +250,11 @@ void AtestPlayerController::Perfect_Shot_Start()
 
 void AtestPlayerController::Perfect_Shot_End()
 {
+	if (IsFocused_Shot) return;
+	if (IsDashing) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
+		IsPerfect_Shot = false;
 		character->GetCharacterMovement()->StopMovementImmediately();
 		character->Perfect_Shot_End();
 	}

@@ -201,22 +201,28 @@ void AtestCharacter::General_Attack()
 		Rifle->General_Attack();
 }
 
-void AtestCharacter::On_Focused_Shot()
+void AtestCharacter::Q_Skill()
 {
 	if(RifleStance)
 	Skill->On_Focused_Shot();
 }
 
-void AtestCharacter::Perfect_Shot_Start()
+void AtestCharacter::W_Skill_Start()
 {
 	if (RifleStance)
 		Skill->On_Perfect_Shot();
 	
 }
 
-void AtestCharacter::Perfect_Shot_End()
+void AtestCharacter::W_Skill_End()
 {
 	if(RifleStance)
 		Skill->End_Perfect_Shot();
 
+}
+
+void AtestCharacter::E_Skill()
+{
+	if (RifleStance)
+		Skill->On_Target_Down();
 }

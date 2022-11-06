@@ -48,9 +48,10 @@ void AtestPlayerController::SetupInputComponent()
 	InputComponent->BindAction("ChangeStanceLeft", IE_Pressed, this, &AtestPlayerController::Change_Stance_Left);
 	InputComponent->BindAction("ChangeStanceRight", IE_Pressed, this, &AtestPlayerController::Change_Stance_Right);
 	InputComponent->BindAction("General_Attack", IE_Pressed, this, &AtestPlayerController::General_Attack);
-	InputComponent->BindAction("Focused_Shot", IE_Pressed, this, &AtestPlayerController::Focused_Shot);
-	InputComponent->BindAction("Perfect_Shot", IE_Pressed, this, &AtestPlayerController::Perfect_Shot_Start);
-	InputComponent->BindAction("Perfect_Shot", IE_Released, this, &AtestPlayerController::Perfect_Shot_End);
+	InputComponent->BindAction("Q_Skill", IE_Pressed, this, &AtestPlayerController::Q_Skill);
+	InputComponent->BindAction("W_Skill", IE_Pressed, this, &AtestPlayerController::W_Skill_Start);
+	InputComponent->BindAction("W_Skill", IE_Released, this, &AtestPlayerController::W_Skill_End);
+	InputComponent->BindAction("E_Skill", IE_Released, this, &AtestPlayerController::E_Skill);
 
 }
 
@@ -74,7 +75,6 @@ void AtestPlayerController::MoveToMouseCursor()
 	else
 	{
 		// Trace to see what is under the mouse cursor
-		FHitResult Hit;
 		GetHitResultUnderCursor(ECC_Visibility, false, Hit);
 
 		if (Hit.bBlockingHit)
@@ -147,7 +147,7 @@ void AtestPlayerController::Dash()
 void AtestPlayerController::MoveLookCursor()
 {
 	FHitResult hit;
-	GetHitResultUnderCursor(ECC_WorldDynamic, false, hit);
+	GetHitResultUnderCursor(ECC_Visibility, false, hit);
 	if(hit.bBlockingHit)
 	{
 		APawn* const MyPawn = GetPawn();
@@ -213,9 +213,10 @@ void AtestPlayerController::Change_Stance_Right()
 void AtestPlayerController::General_Attack()
 {
 	if (IsDashing|| IsFocused_Shot|| IsPerfect_Shot) return;
-	MoveLookCursor();
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
+		if(bMove)
+		MoveLookCursor();
 		character->GetCharacterMovement()->StopMovementImmediately();
 		character->General_Attack();
 		bMove = false;
@@ -223,40 +224,58 @@ void AtestPlayerController::General_Attack()
 	
 }
 
-void AtestPlayerController::Focused_Shot()
+void AtestPlayerController::Q_Skill()
 {
 	if (IsFocused_Shot) return;
 	if (IsPerfect_Shot) return;
 	MoveLookCursor();
-	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) 
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
-		IsFocused_Shot = true;
-		character->GetCharacterMovement()->StopMovementImmediately();
-		character->On_Focused_Shot();
+		if (character->GetRifleStance()) 
+		{
+			IsFocused_Shot = true;
+			character->GetCharacterMovement()->StopMovementImmediately();
+			character->Q_Skill();
+		}
 	}
 }
 
-void AtestPlayerController::Perfect_Shot_Start()
+void AtestPlayerController::W_Skill_Start()
 {
 	if (IsFocused_Shot) return;
 	if (IsDashing) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
-		IsPerfect_Shot = true;
-		character->GetCharacterMovement()->StopMovementImmediately();
-		character->Perfect_Shot_Start();
+		if (character->GetRifleStance()) 
+		{
+			IsPerfect_Shot = true;
+			character->GetCharacterMovement()->StopMovementImmediately();
+			character->W_Skill_Start();
+		}
 	}
 }
 
-void AtestPlayerController::Perfect_Shot_End()
+void AtestPlayerController::W_Skill_End()
 {
 	if (IsFocused_Shot) return;
 	if (IsDashing) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
+		if (character->GetRifleStance())
+		{
 		IsPerfect_Shot = false;
 		character->GetCharacterMovement()->StopMovementImmediately();
-		character->Perfect_Shot_End();
+		character->W_Skill_End();
+		}
+	}
+}
+
+void AtestPlayerController::E_Skill()
+{
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
+	{
+		character->GetCharacterMovement()->StopMovementImmediately();
+		character->E_Skill();
 	}
 }
 

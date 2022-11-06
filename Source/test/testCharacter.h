@@ -66,7 +66,11 @@ public:
 	void General_Attack();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class USkillComponent* Skill;
-	void On_Focused_Shot();
-	void Perfect_Shot_Start();
-	void Perfect_Shot_End();
+	void Q_Skill();
+	void W_Skill_Start();
+	void W_Skill_End();
+	void E_Skill();
+	FORCEINLINE bool GetHandgunStance(){ return HandgunStance; }
+	FORCEINLINE bool GetShotgunStance(){ return ShotgunStance; }
+	FORCEINLINE bool GetRifleStance(){ return RifleStance; }
 };

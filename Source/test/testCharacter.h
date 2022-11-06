@@ -64,7 +64,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool RifleStance;   // 라이플 스탠스인지
 	void General_Attack();
-	UPROPERTY(VisibleDefaultsOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class USkillComponent* Skill;
 	void On_Focused_Shot();
+	void Perfect_Shot_Start();
+	void Perfect_Shot_End();
 };

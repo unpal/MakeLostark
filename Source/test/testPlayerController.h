@@ -61,6 +61,8 @@ public:
 	bool IsFocused_Shot;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int Focused_Shot_Combo_Count;
+	void Perfect_Shot_Start();
+	void Perfect_Shot_End();
 };
 
 

@@ -206,3 +206,17 @@ void AtestCharacter::On_Focused_Shot()
 	if(RifleStance)
 	Skill->On_Focused_Shot();
 }
+
+void AtestCharacter::Perfect_Shot_Start()
+{
+	if (RifleStance)
+		Skill->On_Perfect_Shot();
+	
+}
+
+void AtestCharacter::Perfect_Shot_End()
+{
+	if(RifleStance)
+		Skill->End_Perfect_Shot();
+
+}

@@ -53,9 +53,9 @@ public:
 		void General_Attack_And();
 	UFUNCTION(BlueprintCallable)
 		void General_Attack_Bullet_Shoot();
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int General_Attack_Count;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int General_Attack_And_Count;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool bGeneral_Attack;

@@ -58,17 +58,26 @@ public:
 	bool bMove;
 	void Q_Skill();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool IsFocused_Shot;
+	bool Is_Q_Skill;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int Focused_Shot_Combo_Count;
 	void W_Skill_Start();
 	void W_Skill_End();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool IsPerfect_Shot;
+		bool Is_W_Skill;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool b_Perfect_Shot;
 	void E_Skill();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool Is_E_Skill;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Target_Down_Count;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool Is_R_Skill;
 	UPROPERTY(EditAnywhere)
 		FHitResult Hit;
-	FORCEINLINE FVector GetCursor() { return Hit.ImpactPoint; }
+	void R_Skill();
+	void R_Skill_End();
 };
 
 

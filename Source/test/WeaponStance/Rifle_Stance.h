@@ -9,7 +9,7 @@ class TEST_API ARifle_Stance : public AActor
 {
 	GENERATED_BODY()
 
-private:
+public:
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
 		FName HandSocket_Rifle = "Hand_Rifle";
 

@@ -17,7 +17,7 @@ AtestPlayerController::AtestPlayerController()
 	ConstructorHelpers::FObjectFinder<UAnimMontage>montage2(L"AnimMontage'/Game/Montage/Frangk_RPG_Gunslinger_Jump.Frangk_RPG_Gunslinger_Jump'");
 	if (montage.Succeeded())SecondDashMontage = montage2.Object;
 	bMove = true;
-	IsFocused_Shot = false;
+	Is_Q_Skill = false;
 }
 
 void AtestPlayerController::PlayerTick(float DeltaTime)
@@ -29,6 +29,8 @@ void AtestPlayerController::PlayerTick(float DeltaTime)
 	{
 		MoveToMouseCursor();
 	}
+	if(b_Perfect_Shot)
+		MoveLookCursor();
 }
 
 void AtestPlayerController::SetupInputComponent()
@@ -51,7 +53,9 @@ void AtestPlayerController::SetupInputComponent()
 	InputComponent->BindAction("Q_Skill", IE_Pressed, this, &AtestPlayerController::Q_Skill);
 	InputComponent->BindAction("W_Skill", IE_Pressed, this, &AtestPlayerController::W_Skill_Start);
 	InputComponent->BindAction("W_Skill", IE_Released, this, &AtestPlayerController::W_Skill_End);
-	InputComponent->BindAction("E_Skill", IE_Released, this, &AtestPlayerController::E_Skill);
+	InputComponent->BindAction("E_Skill", IE_Pressed, this, &AtestPlayerController::E_Skill);
+	InputComponent->BindAction("R_Skill", IE_Pressed, this, &AtestPlayerController::R_Skill);
+	InputComponent->BindAction("R_Skill", IE_Released, this, &AtestPlayerController::R_Skill_End);
 
 }
 
@@ -102,7 +106,7 @@ void AtestPlayerController::MoveToTouchLocation(const ETouchIndex::Type FingerIn
 void AtestPlayerController::SetNewMoveDestination(const FVector DestLocation)
 {
 	APawn* const MyPawn = GetPawn();
-	if (MyPawn&&bMove&&!IsDashing&&!IsFocused_Shot&&!IsPerfect_Shot)
+	if (MyPawn&&bMove&&!IsDashing&&!Is_Q_Skill&&!Is_W_Skill&&!Is_E_Skill&&!Is_R_Skill)
 	{
 		float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
 
@@ -130,10 +134,11 @@ void AtestPlayerController::Dash()
 {
 	DashCount++;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn())) {
-		if (!IsDashing) {
+		if (!IsDashing||!Is_Q_Skill ||! Is_W_Skill || !Is_E_Skill || !Is_R_Skill) {
 			MoveLookCursor();
 			character->VisibleDashCoolDown();
 			character->GetCharacterMovement()->StopMovementImmediately();
+			R_Skill_End();
 			IsDashing = true;
 			FVector forward = character->GetActorForwardVector() * 12000;
 
@@ -198,25 +203,36 @@ void AtestPlayerController::SecondDash()
 
 void AtestPlayerController::Change_Stance_Left()
 {
-	if (!bMove) return;
+	if (!bMove|| Is_Q_Skill || Is_W_Skill || Is_E_Skill || Is_R_Skill) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 		character->Change_Stance_Left();
 }
 
 void AtestPlayerController::Change_Stance_Right()
 {
-	if (!bMove) return;
+	if (!bMove|| Is_Q_Skill || Is_W_Skill || Is_E_Skill || Is_R_Skill) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 		character->Change_Stance_Right();
 }
 
 void AtestPlayerController::General_Attack()
 {
-	if (IsDashing|| IsFocused_Shot|| IsPerfect_Shot) return;
+	if (IsDashing|| Is_Q_Skill|| Is_W_Skill||Is_E_Skill|| Is_R_Skill) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
 		if(bMove)
 		MoveLookCursor();
+		if(Is_E_Skill)
+		{
+			character->E_Skill();
+			Target_Down_Count++;
+			if(Target_Down_Count >= 3)
+			{
+				Target_Down_Count = 0;
+				Is_E_Skill = false;
+			}
+			return;
+		}
 		character->GetCharacterMovement()->StopMovementImmediately();
 		character->General_Attack();
 		bMove = false;
@@ -226,45 +242,48 @@ void AtestPlayerController::General_Attack()
 
 void AtestPlayerController::Q_Skill()
 {
-	if (IsFocused_Shot) return;
-	if (IsPerfect_Shot) return;
+	if (Is_Q_Skill) return;
+	if (Is_W_Skill) return;
+	if (Is_E_Skill) return;
+	if (Is_R_Skill) return;
 	MoveLookCursor();
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
-		if (character->GetRifleStance()) 
-		{
-			IsFocused_Shot = true;
+
+			Is_Q_Skill = true;
 			character->GetCharacterMovement()->StopMovementImmediately();
 			character->Q_Skill();
-		}
 	}
 }
 
 void AtestPlayerController::W_Skill_Start()
 {
-	if (IsFocused_Shot) return;
+
+	if (Is_Q_Skill) return;
 	if (IsDashing) return;
+	if (Is_E_Skill) return;
+	if (Is_R_Skill) return;
+	MoveLookCursor();
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
-		if (character->GetRifleStance()) 
-		{
-			IsPerfect_Shot = true;
+		if (character->GetRifleStance())
+			b_Perfect_Shot = true;
+			Is_W_Skill = true;
 			character->GetCharacterMovement()->StopMovementImmediately();
 			character->W_Skill_Start();
-		}
 	}
 }
 
 void AtestPlayerController::W_Skill_End()
 {
-	if (IsFocused_Shot) return;
 	if (IsDashing) return;
+
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
 		if (character->GetRifleStance())
 		{
-		IsPerfect_Shot = false;
-		character->GetCharacterMovement()->StopMovementImmediately();
+		Is_W_Skill = false;
+		b_Perfect_Shot = false;
 		character->W_Skill_End();
 		}
 	}
@@ -272,10 +291,56 @@ void AtestPlayerController::W_Skill_End()
 
 void AtestPlayerController::E_Skill()
 {
+	if (Is_Q_Skill) return;
+	if (Is_W_Skill) return;
+	if (Is_R_Skill) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
+		if (character->GetRifleStance())
+		{
+			if (!Is_E_Skill)
+			{
+				character->GetCharacterMovement()->StopMovementImmediately();
+				Is_E_Skill = true;
+				return;
+			}
+			MoveLookCursor();
+			character->E_Skill();
+			Target_Down_Count++;
+			if (Target_Down_Count >= 3)
+			{
+				Target_Down_Count = 0;
+				Is_E_Skill = false;
+			}
+		}
+	}
+}
+
+void AtestPlayerController::R_Skill()
+{
+	if (Is_Q_Skill) return;
+	if (Is_W_Skill) return;
+	if (Is_E_Skill) return;
+	if (Is_R_Skill) return;
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
+	{
+		Is_R_Skill = true;
 		character->GetCharacterMovement()->StopMovementImmediately();
-		character->E_Skill();
+		MoveLookCursor();
+		character->R_Skill();
+	}
+}
+
+void AtestPlayerController::R_Skill_End()
+{
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
+	{
+		if (character->GetRifleStance())
+		{
+			character->R_Skill_End();
+			Is_R_Skill = false;
+
+		}
 	}
 }
 

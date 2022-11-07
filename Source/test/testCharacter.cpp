@@ -226,3 +226,18 @@ void AtestCharacter::E_Skill()
 	if (RifleStance)
 		Skill->On_Target_Down();
 }
+
+void AtestCharacter::R_Skill()
+{
+	if (HandgunStance)
+		Skill->On_AT02_Grenade();
+	if (RifleStance)
+		Skill->On_Catastrophe();
+
+}
+
+void AtestCharacter::R_Skill_End()
+{
+	if (RifleStance)
+		Skill->Begin_Catastrophe();
+}

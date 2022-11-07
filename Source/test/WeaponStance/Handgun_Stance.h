@@ -9,7 +9,7 @@ class TEST_API AHandgun_Stance : public AActor
 {
 	GENERATED_BODY()
 	
-private:
+public:
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
 		FName HandSocket_Handgun_L = "Hand_HandGun_L";
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")

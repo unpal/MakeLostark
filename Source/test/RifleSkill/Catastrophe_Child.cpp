@@ -12,7 +12,9 @@ ACatastrophe_Child::ACatastrophe_Child()
 
 void ACatastrophe_Child::BeginPlay()
 {
-    SetLifeSpan(0.3f);
+	Super::BeginPlay();
+
+    SetLifeSpan(3);
     FTransform transform = ActionEffectTransform;
     FVector location = GetActorLocation();
     location += GetActorRotation().RotateVector(transform.GetLocation());

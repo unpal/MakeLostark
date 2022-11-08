@@ -211,6 +211,8 @@ void AtestCharacter::Q_Skill()
 
 void AtestCharacter::W_Skill_Start()
 {
+	if (HandgunStance)
+		Skill->On_AT02_Grenade();
 	if (ShotgunStance)
 	Skill->On_Shotgun_Rapid_Fire();
 	if (RifleStance)
@@ -242,7 +244,7 @@ void AtestCharacter::E_Skill()
 void AtestCharacter::R_Skill()
 {
 	if (HandgunStance)
-		Skill->On_AT02_Grenade();
+		Skill->On_Equilibrium();
 	if (ShotgunStance)
 	{
 		Shotgun->Shotgun_Stnace_L();

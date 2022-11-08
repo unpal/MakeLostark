@@ -74,6 +74,17 @@ public:
 		class AAT02_Grenade_Boom* AT02_Grenade_Boom;
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<class AAT02_Grenade_Boom> AAT02_Grenade_Boom_Class;
+	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Equilibrium_Montage;
+	void On_Equilibrium();
+	UFUNCTION(BlueprintCallable)
+		void Begin_Equilibrium();
+	UPROPERTY(EditAnywhere)
+		class AEquilibrium* Equilibrium_L;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class AEquilibrium> Equilibrium_Class;
+	UPROPERTY(EditAnywhere)
+		class AEquilibrium* Equilibrium_R;
 public:
 	void On_Shotgun_Rapid_Fire();
 	UFUNCTION(BlueprintCallable)

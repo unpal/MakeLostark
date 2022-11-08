@@ -13,6 +13,8 @@ AShotgun_Rapid_Fire_Child::AShotgun_Rapid_Fire_Child()
 
 void AShotgun_Rapid_Fire_Child::BeginPlay()
 {
+	Super::BeginPlay();
+
     SetLifeSpan(0.3f);
     FTransform transform = ActionEffectTransform;
     FVector location = GetActorLocation();

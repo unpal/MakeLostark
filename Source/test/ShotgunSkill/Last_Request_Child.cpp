@@ -13,7 +13,9 @@ ALast_Request_Child::ALast_Request_Child()
 
 void ALast_Request_Child::BeginPlay()
 {
-    SetLifeSpan(0.3f);
+	Super::BeginPlay();
+
+    SetLifeSpan(3);
     FTransform transform = ActionEffectTransform;
     FVector location = GetActorLocation();
     location += GetActorRotation().RotateVector(transform.GetLocation());

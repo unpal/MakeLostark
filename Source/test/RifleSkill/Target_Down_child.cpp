@@ -12,7 +12,9 @@ ATarget_Down_child::ATarget_Down_child()
 
 void ATarget_Down_child::BeginPlay()
 {
-    SetLifeSpan(0.3f);
+	Super::BeginPlay();
+
+    SetLifeSpan(3);
 	FTransform transform = ActionEffectTransform;
     FVector location = GetActorLocation();
     location += GetActorRotation().RotateVector(transform.GetLocation());

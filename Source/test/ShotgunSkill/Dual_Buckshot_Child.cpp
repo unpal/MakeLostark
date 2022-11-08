@@ -13,6 +13,8 @@ ADual_Buckshot_Child::ADual_Buckshot_Child()
 
 void ADual_Buckshot_Child::BeginPlay()
 {
+	Super::BeginPlay();
+
     SetLifeSpan(0.3f);
     FTransform transform = ActionEffectTransform;
     FVector location = GetActorLocation();

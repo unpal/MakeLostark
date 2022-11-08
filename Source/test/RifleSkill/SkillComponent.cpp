@@ -16,6 +16,7 @@
 #include "../WeaponStance/Handgun_Stance.h"
 #include "../WeaponStance/Shotgun_Stance.h"
 #include "../HandgunSkill/AT02_Grenade_Boom.h"
+#include "../HandgunSkill/Equilibrium.h"
 #include "../ShotgunSkill/Last_Request.h"
 #include "../ShotgunSkill/Shotgun_Rapid_Fire.h"
 #include "../ShotgunSkill/Dual_Buckshot.h"
@@ -114,6 +115,21 @@ void USkillComponent::Begin_AT02_Grenade()
 		0.1f,
 		FVector::ZeroVector);
 
+}
+
+void USkillComponent::On_Equilibrium()
+{
+	Owner->PlayAnimMontage(Equilibrium_Montage, 1);
+}
+
+void USkillComponent::Begin_Equilibrium()
+{
+	FTransform transform_L = Cast<AHandgun_Stance>(Owner->Handgun_L)->Mesh->GetSocketTransform("MuzzleFlash");
+	FTransform transform_R = Cast<AHandgun_Stance>(Owner->Handgun_R)->Mesh->GetSocketTransform("MuzzleFlash");
+	Equilibrium_L = Owner->GetWorld()->SpawnActorDeferred<AEquilibrium>(Equilibrium_Class, transform_L, Owner);
+	Equilibrium_R = Owner->GetWorld()->SpawnActorDeferred<AEquilibrium>(Equilibrium_Class, transform_R, Owner);
+	UGameplayStatics::FinishSpawningActor(Equilibrium_L, transform_L);
+	UGameplayStatics::FinishSpawningActor(Equilibrium_R, transform_R);
 }
 
 void USkillComponent::On_Shotgun_Rapid_Fire()

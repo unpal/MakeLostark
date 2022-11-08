@@ -12,6 +12,8 @@ ASharpshooter_Child::ASharpshooter_Child()
 
 void ASharpshooter_Child::BeginPlay()
 {
+	Super::BeginPlay();
+
 	SetLifeSpan(0.3f);
 	FTransform transform = ActionEffectTransform;
 	FVector location = GetActorLocation();

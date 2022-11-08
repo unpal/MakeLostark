@@ -23,4 +23,7 @@ public:
 	AEquilibrium_Child();
 protected:
 	virtual void BeginPlay() override;
+public:
+	void DestroyParticle();
+	FTimerHandle DestoryTimerHandle;
 };

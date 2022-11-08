@@ -13,7 +13,7 @@ AEquilibrium_Child::AEquilibrium_Child()
 
 void AEquilibrium_Child::BeginPlay()
 {
-	SetLifeSpan(0.3f);
+	Super::BeginPlay();
 	FTransform transform = ActionEffectTransform;
 	FVector location = GetActorLocation();
 	location += GetActorRotation().RotateVector(transform.GetLocation());
@@ -24,5 +24,11 @@ void AEquilibrium_Child::BeginPlay()
 	rotation += FRotator(transform.GetRotation());
 	transform.SetRotation(FQuat(rotation));
 	SetActorRotation(FQuat(rotation));
+	SetLifeSpan(0.3);
+}
+
+void AEquilibrium_Child::DestroyParticle()
+{
+	Destroy();
 }
 

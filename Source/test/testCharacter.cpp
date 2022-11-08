@@ -203,6 +203,8 @@ void AtestCharacter::General_Attack()
 
 void AtestCharacter::Q_Skill()
 {
+	if (ShotgunStance)
+		Skill->On_Dual_Buckshot_Fire();
 	if(RifleStance)
 	Skill->On_Focused_Shot();
 }

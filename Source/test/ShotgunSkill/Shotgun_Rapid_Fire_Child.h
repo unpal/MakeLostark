@@ -13,5 +13,16 @@ UCLASS()
 class TEST_API AShotgun_Rapid_Fire_Child : public AShotgun_Rapid_Fire
 {
 	GENERATED_BODY()
-	
+private:
+	UPROPERTY(VisibleDefaultsOnly)
+		class USceneComponent* Root;
+	UPROPERTY(EditDefaultsOnly)
+		class UParticleSystemComponent* Particle;
+
+
+public:
+	AShotgun_Rapid_Fire_Child();
+
+protected:
+	virtual void BeginPlay() override;
 };

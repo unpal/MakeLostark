@@ -76,6 +76,7 @@ public:
 		TSubclassOf<class AAT02_Grenade_Boom> AAT02_Grenade_Boom_Class;
 public:
 	void On_Shotgun_Rapid_Fire();
+	UFUNCTION(BlueprintCallable)
 	void Begin_Shotgun_Rapid_Fire();
 	void On_Last_Request_Fire();
 	UFUNCTION(BlueprintCallable)
@@ -85,7 +86,22 @@ public:
 	UPROPERTY(EditAnywhere)
 		class ALast_Request* Last_Request;
 	UPROPERTY(EditAnywhere)
+		TSubclassOf<class AShotgun_Rapid_Fire> Shotgun_Rapid_Fire_Class;
+	UPROPERTY(EditAnywhere)
+		class AShotgun_Rapid_Fire* Shotgun_Rapid_Fire;
+	UPROPERTY(EditAnywhere)
 		class UAnimMontage* Shotgun_Rapid_Fire_Montage;
 	UPROPERTY(EditAnywhere)
 		class UAnimMontage* Last_Request_Montage;
+	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Dual_Buckshot_Montage_1;
+	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Dual_Buckshot_Montage_2;
+	void On_Dual_Buckshot_Fire();
+	UFUNCTION(BlueprintCallable)
+		void Begin_Dual_Buckshot_Fire();
+	UPROPERTY(EditAnywhere)
+		class ADual_Buckshot* Dual_Buckshot;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class ADual_Buckshot> Dual_Buckshot_Class;
 };

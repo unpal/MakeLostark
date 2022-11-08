@@ -17,6 +17,8 @@
 #include "../WeaponStance/Shotgun_Stance.h"
 #include "../HandgunSkill/AT02_Grenade_Boom.h"
 #include "../ShotgunSkill/Last_Request.h"
+#include "../ShotgunSkill/Shotgun_Rapid_Fire.h"
+#include "../ShotgunSkill/Dual_Buckshot.h"
 USkillComponent::USkillComponent()
 {
 	Perfect_Shot_Casting = false;
@@ -120,6 +122,9 @@ void USkillComponent::On_Shotgun_Rapid_Fire()
 
 void USkillComponent::Begin_Shotgun_Rapid_Fire()
 {
+	FTransform transform = Cast<AShotgun_Stance>(Owner->Shotgun)->Mesh->GetSocketTransform("MuzzleFlash");
+	Shotgun_Rapid_Fire = Owner->GetWorld()->SpawnActorDeferred<AShotgun_Rapid_Fire>(Shotgun_Rapid_Fire_Class, transform, Owner);
+	UGameplayStatics::FinishSpawningActor(Shotgun_Rapid_Fire, transform);
 }
 
 void USkillComponent::On_Last_Request_Fire()
@@ -132,6 +137,18 @@ void USkillComponent::Begin_Last_Request_Fire()
 	FTransform transform = Cast<AShotgun_Stance>(Owner->Shotgun)->Mesh->GetSocketTransform("MuzzleFlash");
 	Last_Request = Owner->GetWorld()->SpawnActorDeferred<ALast_Request>(Last_Request_Class, transform, Owner);
 	UGameplayStatics::FinishSpawningActor(Last_Request, transform);
+}
+
+void USkillComponent::On_Dual_Buckshot_Fire()
+{
+	Owner->PlayAnimMontage(Dual_Buckshot_Montage_1, 1);
+}
+
+void USkillComponent::Begin_Dual_Buckshot_Fire()
+{
+	FTransform transform = Cast<AShotgun_Stance>(Owner->Shotgun)->Mesh->GetSocketTransform("MuzzleFlash");
+	Dual_Buckshot = Owner->GetWorld()->SpawnActorDeferred<ADual_Buckshot>(Dual_Buckshot_Class, transform, Owner);
+	UGameplayStatics::FinishSpawningActor(Dual_Buckshot, transform);
 }
 
 

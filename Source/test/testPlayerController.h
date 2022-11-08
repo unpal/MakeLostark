@@ -78,6 +78,8 @@ public:
 		FHitResult Hit;
 	void R_Skill();
 	void R_Skill_End();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Combo_Q;
 };
 
 

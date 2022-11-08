@@ -242,14 +242,15 @@ void AtestPlayerController::General_Attack()
 
 void AtestPlayerController::Q_Skill()
 {
+	MoveLookCursor();
+	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
+	{
+		if (character->GetShotgunStance())
+			Combo_Q++;
 	if (Is_Q_Skill) return;
 	if (Is_W_Skill) return;
 	if (Is_E_Skill) return;
 	if (Is_R_Skill) return;
-	MoveLookCursor();
-	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
-	{
-
 			Is_Q_Skill = true;
 			character->GetCharacterMovement()->StopMovementImmediately();
 			character->Q_Skill();
@@ -261,6 +262,7 @@ void AtestPlayerController::W_Skill_Start()
 
 	if (Is_Q_Skill) return;
 	if (IsDashing) return;
+	if (Is_W_Skill) return;
 	if (Is_E_Skill) return;
 	if (Is_R_Skill) return;
 	MoveLookCursor();
@@ -321,6 +323,7 @@ void AtestPlayerController::R_Skill()
 	if (Is_Q_Skill) return;
 	if (Is_W_Skill) return;
 	if (Is_E_Skill) return;
+	if (Is_R_Skill) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
 		Is_R_Skill = true;

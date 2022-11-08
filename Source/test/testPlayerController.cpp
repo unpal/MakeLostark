@@ -321,7 +321,6 @@ void AtestPlayerController::R_Skill()
 	if (Is_Q_Skill) return;
 	if (Is_W_Skill) return;
 	if (Is_E_Skill) return;
-	if (Is_R_Skill) return;
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
 		Is_R_Skill = true;

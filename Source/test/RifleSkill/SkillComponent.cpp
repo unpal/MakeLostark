@@ -14,7 +14,9 @@
 #include "../testCharacter.h"
 #include "../WeaponStance/Rifle_Stance.h"
 #include "../WeaponStance/Handgun_Stance.h"
+#include "../WeaponStance/Shotgun_Stance.h"
 #include "../HandgunSkill/AT02_Grenade_Boom.h"
+#include "../ShotgunSkill/Last_Request.h"
 USkillComponent::USkillComponent()
 {
 	Perfect_Shot_Casting = false;
@@ -109,6 +111,27 @@ void USkillComponent::Begin_AT02_Grenade()
 		0.1f,
 		FVector::ZeroVector);
 
+}
+
+void USkillComponent::On_Shotgun_Rapid_Fire()
+{
+	Owner->PlayAnimMontage(Shotgun_Rapid_Fire_Montage, 1);
+}
+
+void USkillComponent::Begin_Shotgun_Rapid_Fire()
+{
+}
+
+void USkillComponent::On_Last_Request_Fire()
+{
+	Owner->PlayAnimMontage(Last_Request_Montage, 1);
+}
+
+void USkillComponent::Begin_Last_Request_Fire()
+{
+	FTransform transform = Cast<AShotgun_Stance>(Owner->Shotgun)->Mesh->GetSocketTransform("MuzzleFlash");
+	Last_Request = Owner->GetWorld()->SpawnActorDeferred<ALast_Request>(Last_Request_Class, transform, Owner);
+	UGameplayStatics::FinishSpawningActor(Last_Request, transform);
 }
 
 

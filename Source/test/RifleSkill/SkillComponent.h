@@ -74,4 +74,18 @@ public:
 		class AAT02_Grenade_Boom* AT02_Grenade_Boom;
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<class AAT02_Grenade_Boom> AAT02_Grenade_Boom_Class;
+public:
+	void On_Shotgun_Rapid_Fire();
+	void Begin_Shotgun_Rapid_Fire();
+	void On_Last_Request_Fire();
+	UFUNCTION(BlueprintCallable)
+	void Begin_Last_Request_Fire();
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class ALast_Request> Last_Request_Class;
+	UPROPERTY(EditAnywhere)
+		class ALast_Request* Last_Request;
+	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Shotgun_Rapid_Fire_Montage;
+	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Last_Request_Montage;
 };

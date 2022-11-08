@@ -209,6 +209,8 @@ void AtestCharacter::Q_Skill()
 
 void AtestCharacter::W_Skill_Start()
 {
+	if (ShotgunStance)
+	Skill->On_Shotgun_Rapid_Fire();
 	if (RifleStance)
 		Skill->On_Perfect_Shot();
 	
@@ -231,6 +233,11 @@ void AtestCharacter::R_Skill()
 {
 	if (HandgunStance)
 		Skill->On_AT02_Grenade();
+	if (ShotgunStance)
+	{
+		Shotgun->Shotgun_Stnace_L();
+		Skill->On_Last_Request_Fire();
+	}
 	if (RifleStance)
 		Skill->On_Catastrophe();
 

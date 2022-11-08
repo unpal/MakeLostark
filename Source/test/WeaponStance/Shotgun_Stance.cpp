@@ -60,6 +60,12 @@ void AShotgun_Stance::General_Attack()
 	bGeneral_Attack = false;
 }
 
+void AShotgun_Stance::Shotgun_Stnace_L()
+{
+	Owner = Cast<ACharacter>(GetOwner());
+	AttachToComponent(Owner->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), HandSocket_Shotgun_L);
+}
+
 void AShotgun_Stance::PlayMuzzleFlash()
 {
 	if (FlashParticle)

@@ -9,10 +9,11 @@ class TEST_API AShotgun_Stance : public AActor
 {
 	GENERATED_BODY()
 
-private:
+public:
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
 		FName HandSocket_Shotgun = "Hand_Shotgun";
-
+	UPROPERTY(EditDefaultsOnly, Category = "Socket")
+		FName HandSocket_Shotgun_L = "Hand_HandGun_L";
 	UPROPERTY(VisibleDefaultsOnly)
 		class USkeletalMeshComponent* Mesh;
 
@@ -35,9 +36,12 @@ public:
 	static AShotgun_Stance* Spawn(class UWorld* InWorld, class ACharacter* InOwner);
 
 public:
+	UFUNCTION(BlueprintCallable)
 	void Shotgun_Stance();
 	void Destroy_Stance();
 	void General_Attack();
+	UFUNCTION(BlueprintCallable)
+	void Shotgun_Stnace_L();
 	UPROPERTY(EditDefaultsOnly)
 		class UParticleSystem* FlashParticle;
 	UFUNCTION(BlueprintCallable)

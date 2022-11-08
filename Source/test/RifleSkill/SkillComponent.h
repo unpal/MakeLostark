@@ -114,5 +114,7 @@ public:
 		class UAnimMontage* Sharpshooter_Montage;
 	void On_Sharpshooter();
 	UFUNCTION(BlueprintCallable)
-		void Begin_Sharpshooter();
+		void Begin_Sharpshooter_R();
+	UFUNCTION(BlueprintCallable)
+		void Begin_Sharpshooter_L();
 };

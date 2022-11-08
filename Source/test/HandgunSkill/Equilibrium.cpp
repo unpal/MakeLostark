@@ -1,22 +1,23 @@
 
 
-#include "Sharpshooter.h"
+#include "Equilibrium.h"
 #include "GameFrameWork/Character.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Particles/ParticleSystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraSystem.h"
-ASharpshooter::ASharpshooter()
+AEquilibrium::AEquilibrium()
 {
+	PrimaryActorTick.bCanEverTick = true;
 
 }
 
-void ASharpshooter::BeginPlay()
+void AEquilibrium::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
-void ASharpshooter::ActionPlayEffect(UWorld* Inworld, ACharacter* InOwner)
+void AEquilibrium::ActionPlayEffect(UWorld* Inworld, ACharacter* InOwner)
 {
 	if (!ActionEffect) return;
 
@@ -44,7 +45,7 @@ void ASharpshooter::ActionPlayEffect(UWorld* Inworld, ACharacter* InOwner)
 			transform.GetScale3D());
 }
 
-void ASharpshooter::ActionPlayEffect(USkeletalMeshComponent* mesh, FName InSocketName)
+void AEquilibrium::ActionPlayEffect(USkeletalMeshComponent* mesh, FName InSocketName)
 {
 	if (!ActionEffect) return;
 
@@ -78,7 +79,7 @@ void ASharpshooter::ActionPlayEffect(USkeletalMeshComponent* mesh, FName InSocke
 			ENCPoolMethod::None);
 }
 
-void ASharpshooter::HitPlayEffect(UWorld* Inworld, ACharacter* InOwner)
+void AEquilibrium::HitPlayEffect(UWorld* Inworld, ACharacter* InOwner)
 {
 	if (!HitEffect) return;
 
@@ -106,7 +107,7 @@ void ASharpshooter::HitPlayEffect(UWorld* Inworld, ACharacter* InOwner)
 			transform.GetScale3D());
 }
 
-void ASharpshooter::HitPlayEffect(USkeletalMeshComponent* mesh, FName InSocketName)
+void AEquilibrium::HitPlayEffect(USkeletalMeshComponent* mesh, FName InSocketName)
 {
 	if (!HitEffect) return;
 
@@ -139,4 +140,5 @@ void ASharpshooter::HitPlayEffect(USkeletalMeshComponent* mesh, FName InSocketNa
 			true,
 			ENCPoolMethod::None);
 }
+
 

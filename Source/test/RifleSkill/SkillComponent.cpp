@@ -19,6 +19,7 @@
 #include "../ShotgunSkill/Last_Request.h"
 #include "../ShotgunSkill/Shotgun_Rapid_Fire.h"
 #include "../ShotgunSkill/Dual_Buckshot.h"
+#include "../ShotgunSkill/Sharpshooter.h"
 USkillComponent::USkillComponent()
 {
 	Perfect_Shot_Casting = false;
@@ -156,8 +157,17 @@ void USkillComponent::On_Sharpshooter()
 	Owner->PlayAnimMontage(Sharpshooter_Montage, 1);
 }
 
-void USkillComponent::Begin_Sharpshooter()
+void USkillComponent::Begin_Sharpshooter_R()
 {
+	FTransform transform = Cast<AShotgun_Stance>(Owner->Shotgun)->Mesh->GetSocketTransform("MuzzleFlash");
+	Sharpshooter = Owner->GetWorld()->SpawnActorDeferred<ASharpshooter>(Sharpshooter_Class, transform, Owner);
+	UGameplayStatics::FinishSpawningActor(Sharpshooter, transform);
+}
+void USkillComponent::Begin_Sharpshooter_L()
+{
+	FTransform transform = Cast<AShotgun_Stance>(Owner->Shotgun2)->Mesh->GetSocketTransform("MuzzleFlash");
+	Sharpshooter = Owner->GetWorld()->SpawnActorDeferred<ASharpshooter>(Sharpshooter_Class, transform, Owner);
+	UGameplayStatics::FinishSpawningActor(Sharpshooter, transform);
 }
 
 

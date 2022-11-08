@@ -318,7 +318,9 @@ void AtestPlayerController::E_Skill()
 		if (character->GetShotgunStance())
 		{
 			character->GetCharacterMovement()->StopMovementImmediately();
+			MoveLookCursor();
 			character->E_Skill();
+			Is_E_Skill = true;
 		}
 	}
 }

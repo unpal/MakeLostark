@@ -1,17 +1,16 @@
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Sharpshooter.generated.h"
+#include "Equilibrium.generated.h"
 
 UCLASS()
-class TEST_API ASharpshooter : public AActor
+class TEST_API AEquilibrium : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	ASharpshooter();
+	AEquilibrium();
 
 protected:
 	virtual void BeginPlay() override;
@@ -28,4 +27,5 @@ public:
 	void ActionPlayEffect(class USkeletalMeshComponent* mesh, FName InSocketName = NAME_None);
 	void HitPlayEffect(class UWorld* Inworld, class ACharacter* InOwner);
 	void HitPlayEffect(class USkeletalMeshComponent* mesh, FName InSocketName = NAME_None);
+
 };

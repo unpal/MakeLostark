@@ -151,4 +151,13 @@ void USkillComponent::Begin_Dual_Buckshot_Fire()
 	UGameplayStatics::FinishSpawningActor(Dual_Buckshot, transform);
 }
 
+void USkillComponent::On_Sharpshooter()
+{
+	Owner->PlayAnimMontage(Sharpshooter_Montage, 1);
+}
+
+void USkillComponent::Begin_Sharpshooter()
+{
+}
+
 

@@ -315,6 +315,11 @@ void AtestPlayerController::E_Skill()
 				Is_E_Skill = false;
 			}
 		}
+		if (character->GetShotgunStance())
+		{
+			character->GetCharacterMovement()->StopMovementImmediately();
+			character->E_Skill();
+		}
 	}
 }
 

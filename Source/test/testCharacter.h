@@ -54,6 +54,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class AShotgun_Stance* Shotgun;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		class AShotgun_Stance* Shotgun2;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class ARifle_Stance* Rifle;
 
 public:

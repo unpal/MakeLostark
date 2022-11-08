@@ -38,6 +38,7 @@ public:
 public:
 	UFUNCTION(BlueprintCallable)
 	void Shotgun_Stance();
+	UFUNCTION(BlueprintCallable)
 	void Destroy_Stance();
 	void General_Attack();
 	UFUNCTION(BlueprintCallable)

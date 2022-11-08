@@ -220,6 +220,7 @@ void AtestCharacter::W_Skill_Start()
 
 void AtestCharacter::W_Skill_End()
 {
+
 	if(RifleStance)
 		Skill->End_Perfect_Shot();
 
@@ -227,6 +228,13 @@ void AtestCharacter::W_Skill_End()
 
 void AtestCharacter::E_Skill()
 {
+	if (ShotgunStance)
+	{
+		Skill->On_Sharpshooter();
+		Shotgun2 = AShotgun_Stance::Spawn(GetWorld(),this);
+		Shotgun2->Shotgun_Stnace_L();
+	}
+	
 	if (RifleStance)
 		Skill->On_Target_Down();
 }

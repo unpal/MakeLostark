@@ -86,13 +86,15 @@ public:
 	UPROPERTY(EditAnywhere)
 		class ALast_Request* Last_Request;
 	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Last_Request_Montage;
+public:
+	UPROPERTY(EditAnywhere)
 		TSubclassOf<class AShotgun_Rapid_Fire> Shotgun_Rapid_Fire_Class;
 	UPROPERTY(EditAnywhere)
 		class AShotgun_Rapid_Fire* Shotgun_Rapid_Fire;
 	UPROPERTY(EditAnywhere)
 		class UAnimMontage* Shotgun_Rapid_Fire_Montage;
-	UPROPERTY(EditAnywhere)
-		class UAnimMontage* Last_Request_Montage;
+public:
 	UPROPERTY(EditAnywhere)
 		class UAnimMontage* Dual_Buckshot_Montage_1;
 	UPROPERTY(EditAnywhere)
@@ -104,4 +106,13 @@ public:
 		class ADual_Buckshot* Dual_Buckshot;
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<class ADual_Buckshot> Dual_Buckshot_Class;
+	UPROPERTY(EditAnywhere)
+		class ASharpshooter* Sharpshooter;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class ASharpshooter> Sharpshooter_Class;
+	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Sharpshooter_Montage;
+	void On_Sharpshooter();
+	UFUNCTION(BlueprintCallable)
+		void Begin_Sharpshooter();
 };

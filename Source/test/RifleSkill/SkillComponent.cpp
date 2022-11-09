@@ -151,6 +151,9 @@ void USkillComponent::On_Somersault_Shot()
 
 void USkillComponent::Quick_Step_Shot()
 {
+	FVector forward = Owner->GetActorForwardVector() * 20000;
+	Owner->GetCharacterMovement()->AddImpulse(forward, true);
+	Owner->PlayAnimMontage(Quick_Step_Montage, 1);
 }
 
 void USkillComponent::On_Shotgun_Rapid_Fire()

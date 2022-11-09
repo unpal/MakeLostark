@@ -269,6 +269,7 @@ void AtestCharacter::A_Skill()
 
 void AtestCharacter::S_Skill()
 {
+	Skill->Quick_Step_Shot();
 }
 
 void AtestCharacter::D_Skill()

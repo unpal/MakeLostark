@@ -230,6 +230,8 @@ void AtestCharacter::W_Skill_End()
 
 void AtestCharacter::E_Skill()
 {
+	if (HandgunStance)
+		Skill->On_Peacekeeper();
 	if (ShotgunStance)
 	{
 		Skill->On_Sharpshooter();

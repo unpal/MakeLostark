@@ -21,6 +21,19 @@ public:
 	UPROPERTY(visibleDefaultsOnly)
 		class UStaticMeshComponent* Mesh;
 	UPROPERTY(visibleDefaultsOnly)
-		class UCharacterMovementComponent* CharacterMovement;
+		class UProjectileMovementComponent* Projectile;
+	UPROPERTY(VisibleDefaultsOnly)
+		class USphereComponent* Sphere;
 	void Throw_Boom(FVector Start, FVector Target, float arcValue, FVector outVelocity);
+	UPROPERTY(EditAnywhere)
+		class AAT02_Grenade* AT02_Grenade;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class AAT02_Grenade> AT02_Grenade_Class;
+private:
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComponent,
+			AActor* OtherActor,
+			UPrimitiveComponent* OtherComp,
+			FVector NormalImpuluse,
+			const FHitResult& Hit);
 };

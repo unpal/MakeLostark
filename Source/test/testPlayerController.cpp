@@ -265,14 +265,15 @@ void AtestPlayerController::W_Skill_Start()
 	if (Is_W_Skill) return;
 	if (Is_E_Skill) return;
 	if (Is_R_Skill) return;
-	MoveLookCursor();
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 	{
 		if (character->GetRifleStance())
 			b_Perfect_Shot = true;
 			Is_W_Skill = true;
+			MoveLookCursor();
 			character->GetCharacterMovement()->StopMovementImmediately();
 			character->W_Skill_Start();
+
 	}
 }
 
@@ -317,6 +318,16 @@ void AtestPlayerController::E_Skill()
 		}
 		if (character->GetShotgunStance())
 		{
+			if (Is_E_Skill) return;
+			character->GetCharacterMovement()->StopMovementImmediately();
+			MoveLookCursor();
+			character->E_Skill();
+			Is_E_Skill = true;
+		}
+		if(character->GetHandgunStance())
+		{
+			PeaceKeeper_Input_Count++;
+			if (Is_E_Skill) return;
 			character->GetCharacterMovement()->StopMovementImmediately();
 			MoveLookCursor();
 			character->E_Skill();

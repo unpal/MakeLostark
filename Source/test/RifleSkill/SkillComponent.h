@@ -70,6 +70,7 @@ public:
 	void On_AT02_Grenade();
 	UFUNCTION(BlueprintCallable)
 	void Begin_AT02_Grenade();
+	FHitResult hit;
 	UPROPERTY(EditAnywhere)
 		class AAT02_Grenade_Boom* AT02_Grenade_Boom;
 	UPROPERTY(EditAnywhere)
@@ -85,6 +86,11 @@ public:
 		TSubclassOf<class AEquilibrium> Equilibrium_Class;
 	UPROPERTY(EditAnywhere)
 		class AEquilibrium* Equilibrium_R;
+	void On_Peacekeeper();
+	UFUNCTION(BlueprintCallable)
+		void Begin_Peacekeeper();
+	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Peacekeeper_Montage;
 public:
 	void On_Shotgun_Rapid_Fire();
 	UFUNCTION(BlueprintCallable)

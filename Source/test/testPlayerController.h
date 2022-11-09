@@ -80,6 +80,10 @@ public:
 	void R_Skill_End();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int Combo_Q;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int PeaceKeeper_Combo_Count;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int PeaceKeeper_Input_Count;
 };
 
 

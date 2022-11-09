@@ -21,6 +21,7 @@
 #include "../ShotgunSkill/Shotgun_Rapid_Fire.h"
 #include "../ShotgunSkill/Dual_Buckshot.h"
 #include "../ShotgunSkill/Sharpshooter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 USkillComponent::USkillComponent()
 {
 	Perfect_Shot_Casting = false;
@@ -65,7 +66,6 @@ void USkillComponent::On_Target_Down()
 
 void USkillComponent::Begin_Target_Down()
 {
-	FHitResult hit;
 	(Cast<AtestPlayerController>(Owner->GetController())->GetHitResultUnderCursor(ECC_Visibility, false, hit));
 	FTransform transform = FTransform(hit.ImpactPoint);
 	ATarget_Down* target_down = Owner->GetWorld()->SpawnActorDeferred<ATarget_Down>(Target_Down_Class, transform, Owner);
@@ -99,12 +99,11 @@ void USkillComponent::Begin_Catastrophe()
 void USkillComponent::On_AT02_Grenade()
 {
 	Owner->PlayAnimMontage(AT02_Grenade_Montage, 1);
+	(Cast<AtestPlayerController>(Owner->GetController())->GetHitResultUnderCursor(ECC_Visibility, false, hit));
 }
 
 void USkillComponent::Begin_AT02_Grenade()
 {
-	FHitResult hit;
-	(Cast<AtestPlayerController>(Owner->GetController())->GetHitResultUnderCursor(ECC_Visibility, false, hit));
 	FVector muzzleLocation = Cast<AHandgun_Stance>(Cast<AtestCharacter>(GetOwner())->Handgun_L)->Mesh->GetSocketLocation("MuzzleFlash");
 	FVector direction = GetOwner()->GetActorForwardVector();
 	FVector spawnLocation = muzzleLocation + direction * 100;
@@ -112,7 +111,7 @@ void USkillComponent::Begin_AT02_Grenade()
 		AAT02_Grenade_Boom_Class, spawnLocation, direction.Rotation());
 	AT02_Grenade_Boom->Throw_Boom(spawnLocation,
 		hit.ImpactPoint,
-		0.1f,
+		0.5f,
 		FVector::ZeroVector);
 
 }
@@ -130,6 +129,18 @@ void USkillComponent::Begin_Equilibrium()
 	Equilibrium_R = Owner->GetWorld()->SpawnActorDeferred<AEquilibrium>(Equilibrium_Class, transform_R, Owner);
 	UGameplayStatics::FinishSpawningActor(Equilibrium_L, transform_L);
 	UGameplayStatics::FinishSpawningActor(Equilibrium_R, transform_R);
+}
+
+void USkillComponent::On_Peacekeeper()
+{
+	FVector forward = Owner->GetActorForwardVector() * 15000;
+	Owner->GetCharacterMovement()->AddImpulse(forward, true);
+	Owner->PlayAnimMontage(Peacekeeper_Montage, 1);
+
+}
+
+void USkillComponent::Begin_Peacekeeper()
+{
 }
 
 void USkillComponent::On_Shotgun_Rapid_Fire()

@@ -33,13 +33,6 @@ void AAT02_Grenade_Boom::Throw_Boom(FVector Start, FVector Target, float arcValu
 {
 	if (UGameplayStatics::SuggestProjectileVelocity_CustomArc(this, outVelocity, Start, Target, GetWorld()->GetGravityZ(), arcValue))
 	{
-		FPredictProjectilePathParams predictParams(20.0f, Start, outVelocity, 15.0f);   // 20: tracing 보여질 프로젝타일 크기, 15: 시물레이션되는 Max 시간(초)
-		predictParams.DrawDebugTime = 15.0f;     //디버그 라인 보여지는 시간 (초)
-		predictParams.DrawDebugType = EDrawDebugTrace::Type::ForDuration;  // DrawDebugTime 을 지정하면 EDrawDebugTrace::Type::ForDuration 필요.
-		predictParams.OverrideGravityZ = GetWorld()->GetGravityZ();
-		FPredictProjectilePathResult result;
-		UGameplayStatics::PredictProjectilePath(this, predictParams, result);
-
 		Projectile->Velocity = outVelocity;
 	}
 }

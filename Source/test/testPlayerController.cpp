@@ -383,9 +383,17 @@ void AtestPlayerController::S_Skill()
 	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
 		if (character->GetHandgunStance())
 		{
-			character->GetCharacterMovement()->StopMovementImmediately();
-			character->S_Skill();
-			Is_S_Skill = true;
+			if (Is_S_Skill)
+			{
+				if (S_Skill_Combo > 1) return;
+				S_Skill_Combo++;
+			}
+			else {
+				character->GetCharacterMovement()->StopMovementImmediately();
+				MoveLookCursor();
+				character->S_Skill();
+				Is_S_Skill = true;
+			}
 		}
 }
 

@@ -96,6 +96,8 @@ public:
 		bool Is_D_Skill;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool Is_F_Skill;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int S_Skill_Combo;
 };
 
 

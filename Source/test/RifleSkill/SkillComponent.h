@@ -91,6 +91,12 @@ public:
 		void Begin_Peacekeeper();
 	UPROPERTY(EditAnywhere)
 		class UAnimMontage* Peacekeeper_Montage;
+	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Somersault_Shot_Montage;
+	void On_Somersault_Shot();
+	UPROPERTY(EditAnywhere)
+		class UAnimMontage* Quick_Step_Montage;
+	void Quick_Step_Shot();
 public:
 	void On_Shotgun_Rapid_Fire();
 	UFUNCTION(BlueprintCallable)

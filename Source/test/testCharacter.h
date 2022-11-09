@@ -74,6 +74,10 @@ public:
 	void E_Skill();
 	void R_Skill();
 	void R_Skill_End();
+	void A_Skill();
+	void S_Skill();
+	void D_Skill();
+	void F_Skill();
 	FORCEINLINE bool GetHandgunStance(){ return HandgunStance; }
 	FORCEINLINE bool GetShotgunStance(){ return ShotgunStance; }
 	FORCEINLINE bool GetRifleStance(){ return RifleStance; }

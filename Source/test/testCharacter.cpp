@@ -262,3 +262,20 @@ void AtestCharacter::R_Skill_End()
 	if (RifleStance)
 		Skill->Begin_Catastrophe();
 }
+
+void AtestCharacter::A_Skill()
+{
+}
+
+void AtestCharacter::S_Skill()
+{
+}
+
+void AtestCharacter::D_Skill()
+{
+	Skill->On_Somersault_Shot();
+}
+
+void AtestCharacter::F_Skill()
+{
+}

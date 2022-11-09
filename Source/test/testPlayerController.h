@@ -84,6 +84,18 @@ public:
 		int PeaceKeeper_Combo_Count;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int PeaceKeeper_Input_Count;
+	void A_Skill();
+	void S_Skill();
+	void D_Skill();
+	void F_Skill();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool Is_A_Skill;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool Is_S_Skill;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool Is_D_Skill;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool Is_F_Skill;
 };
 
 

@@ -23,4 +23,13 @@ private:
 		class USceneComponent* Root;
 	UPROPERTY(EditDefaultsOnly)
 		class UParticleSystemComponent* Particle;
+	UPROPERTY(visibleDefaultsOnly)
+		class UCapsuleComponent* Capsule;
+private:
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComponent,
+			AActor* OtherActor,
+			UPrimitiveComponent* OtherComp,
+			FVector NormalImpuluse,
+			const FHitResult& Hit);
 };

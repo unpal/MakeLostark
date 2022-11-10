@@ -41,6 +41,8 @@ void ABullet::BeginPlay()
 
 void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpuluse, const FHitResult& Hit)
 {
+	FDamageEvent e;
+	OtherActor->TakeDamage(5.0f, e, GetWorld()->GetFirstPlayerController(), this);
 }
 
 void ABullet::Shoot(const FVector& InDirection)

@@ -3,12 +3,16 @@
 
 #include "Shotgun_Rapid_Fire_Child.h"
 #include "particles/ParticleSystemComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "../AI_Monster/AI_Character.h"
 
 AShotgun_Rapid_Fire_Child::AShotgun_Rapid_Fire_Child()
 {
     Root = CreateDefaultSubobject<USceneComponent>("Root");
     Particle = CreateDefaultSubobject<UParticleSystemComponent>("Particle");
     Particle->SetupAttachment(Root);
+	Capsule = CreateDefaultSubobject<UCapsuleComponent>("Capsule");
+	Capsule->SetCollisionProfileName("BlockAllDynamic");
 }
 
 void AShotgun_Rapid_Fire_Child::BeginPlay()
@@ -26,4 +30,13 @@ void AShotgun_Rapid_Fire_Child::BeginPlay()
     rotation += FRotator(transform.GetRotation());
     transform.SetRotation(FQuat(rotation));
     SetActorRotation(FQuat(rotation));
+	Capsule->OnComponentHit.AddDynamic(this, &AShotgun_Rapid_Fire_Child::OnHit);
+}
+void AShotgun_Rapid_Fire_Child::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpuluse, const FHitResult& Hit)
+{
+	FDamageEvent e;
+	if (Cast<AAI_Character>(OtherActor))
+	{
+		OtherActor->TakeDamage(5.0f, e, GetWorld()->GetFirstPlayerController(), this);
+	}
 }

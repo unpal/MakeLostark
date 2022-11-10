@@ -21,11 +21,11 @@ protected:
 
 public:
 	UPROPERTY(visibleDefaultsOnly)
-		class UCapsuleComponent* Capsule;
-	UPROPERTY(visibleDefaultsOnly)
 		class UStaticMeshComponent* Mesh;
 	UPROPERTY(visibleDefaultsOnly)
 		class UProjectileMovementComponent* Projectile;
+	UPROPERTY(visibleDefaultsOnly)
+		class UCapsuleComponent* Capsule;
 private:
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComponent,

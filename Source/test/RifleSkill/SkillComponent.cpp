@@ -133,7 +133,7 @@ void USkillComponent::Begin_Equilibrium()
 
 void USkillComponent::On_Peacekeeper()
 {
-	FVector forward = Owner->GetActorForwardVector() * 30000;
+	FVector forward = Owner->GetActorForwardVector() * 10000;
 	Owner->GetCharacterMovement()->AddImpulse(forward, true);
 	Owner->PlayAnimMontage(Peacekeeper_Montage, 1);
 }
@@ -145,7 +145,7 @@ void USkillComponent::Begin_Peacekeeper()
 
 void USkillComponent::Quick_Step_Shot()
 {
-	FVector forward = Owner->GetActorForwardVector() * 20000;
+	FVector forward = Owner->GetActorForwardVector() * 10000;
 	Owner->GetCharacterMovement()->AddImpulse(forward, true);
 	Owner->PlayAnimMontage(Quick_Step_Montage, 1);
 }

@@ -15,8 +15,13 @@ public class test : ModuleRules
 			"InputCore", 
 			"HeadMountedDisplay",
 			"NavigationSystem",
-			"AIModule" ,
-			"Niagara"
+			"AIModule",
+			"GamePlayTasks",
+			"Niagara",
+			"UMG"
 		});
-    }
+		PrivateDependencyModuleNames.AddRange(new string[] { });
+
+		PublicIncludePaths.Add(ModuleDirectory);
+	}
 }

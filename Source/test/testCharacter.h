@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GenericTeamAgentInterface.h"
 #include "testCharacter.generated.h"
 
 UCLASS(Blueprintable)
-class AtestCharacter : public ACharacter
+class AtestCharacter : public ACharacter , public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -38,6 +39,10 @@ private:
 	class UDecalComponent* CursorToWorld;
 	
 	class UDashWidget* DashCoolDown;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Team")
+		uint8 TeamId = 1;
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<class UDashWidget> DashCoolDownClass;

@@ -203,6 +203,8 @@ void AtestCharacter::General_Attack()
 
 void AtestCharacter::Q_Skill()
 {
+	if (HandgunStance)
+		Skill->Quick_Step_Shot();
 	if (ShotgunStance)
 		Skill->On_Dual_Buckshot_Fire();
 	if(RifleStance)
@@ -263,20 +265,3 @@ void AtestCharacter::R_Skill_End()
 		Skill->Begin_Catastrophe();
 }
 
-void AtestCharacter::A_Skill()
-{
-}
-
-void AtestCharacter::S_Skill()
-{
-	Skill->Quick_Step_Shot();
-}
-
-void AtestCharacter::D_Skill()
-{
-	Skill->On_Somersault_Shot();
-}
-
-void AtestCharacter::F_Skill()
-{
-}

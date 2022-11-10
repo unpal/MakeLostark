@@ -142,12 +142,6 @@ void USkillComponent::Begin_Peacekeeper()
 {
 }
 
-void USkillComponent::On_Somersault_Shot()
-{
-	FVector forward = Owner->GetActorForwardVector() * 20000;
-	Owner->GetCharacterMovement()->AddImpulse(forward, true);
-	Owner->PlayAnimMontage(Somersault_Shot_Montage, 1);
-}
 
 void USkillComponent::Quick_Step_Shot()
 {

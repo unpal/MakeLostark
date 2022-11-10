@@ -56,10 +56,7 @@ void AtestPlayerController::SetupInputComponent()
 	InputComponent->BindAction("E_Skill", IE_Pressed, this, &AtestPlayerController::E_Skill);
 	InputComponent->BindAction("R_Skill", IE_Pressed, this, &AtestPlayerController::R_Skill);
 	InputComponent->BindAction("R_Skill", IE_Released, this, &AtestPlayerController::R_Skill_End);
-	InputComponent->BindAction("A_Skill", IE_Pressed, this, &AtestPlayerController::A_Skill);
-	InputComponent->BindAction("S_Skill", IE_Pressed, this, &AtestPlayerController::S_Skill);
-	InputComponent->BindAction("D_Skill", IE_Pressed, this, &AtestPlayerController::D_Skill);
-	InputComponent->BindAction("F_Skill", IE_Pressed, this, &AtestPlayerController::F_Skill);
+
 }
 
 void AtestPlayerController::OnResetVR()
@@ -250,6 +247,8 @@ void AtestPlayerController::Q_Skill()
 	{
 		if (character->GetShotgunStance())
 			Combo_Q++;
+		if (character->GetHandgunStance())
+			Quick_Step_Skill_Combo++;
 	if (Is_Q_Skill) return;
 	if (Is_W_Skill) return;
 	if (Is_E_Skill) return;
@@ -365,58 +364,6 @@ void AtestPlayerController::R_Skill_End()
 
 		}
 	}
-}
-
-void AtestPlayerController::A_Skill()
-{
-	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
-		if (character->GetHandgunStance())
-		{
-			character->GetCharacterMovement()->StopMovementImmediately();
-			character->A_Skill();
-			Is_A_Skill = true;
-		}
-}
-
-void AtestPlayerController::S_Skill()
-{
-	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
-		if (character->GetHandgunStance())
-		{
-			if (Is_S_Skill)
-			{
-				if (S_Skill_Combo > 1) return;
-				S_Skill_Combo++;
-			}
-			else {
-				character->GetCharacterMovement()->StopMovementImmediately();
-				MoveLookCursor();
-				character->S_Skill();
-				Is_S_Skill = true;
-			}
-		}
-}
-
-void AtestPlayerController::D_Skill()
-{
-	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
-		if (character->GetHandgunStance()) 
-		{
-			character->GetCharacterMovement()->StopMovementImmediately();
-			character->D_Skill();
-			Is_D_Skill = true;
-		}
-}
-
-void AtestPlayerController::F_Skill()
-{
-	if (AtestCharacter* character = Cast<AtestCharacter>(GetPawn()))
-		if (character->GetHandgunStance()) 
-		{
-			character->GetCharacterMovement()->StopMovementImmediately();
-			character->F_Skill();
-			Is_F_Skill = true;
-		}
 }
 
 
